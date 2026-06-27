@@ -1,0 +1,130 @@
+// دسته‌بندی‌ها: cabinet (ساخت کابینت) | cabin (ساخت کلبه) | design (طراحی کابینت)
+// gallery: عکس‌هایی که با کلیک روی پروژه در لایت‌باکس نمایش داده می‌شوند
+export const projects = [
+  {
+    id: 1,
+    category: "cabinet",
+    tag: "ساخت کابینت",
+    title: "کابینت مدرن های‌گلاس",
+    sub: "آشپزخانه ال شکل، تهران",
+    img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400&q=80",
+      "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=1400&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1400&q=80",
+      "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?w=1400&q=80",
+    ],
+  },
+  {
+    id: 2,
+    category: "cabin",
+    tag: "ساخت کلبه",
+    title: "کلبه چوبی ییلاقی",
+    sub: "ویلای جنگلی، گیلان",
+    img: "https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=1400&q=80",
+      "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1400&q=80",
+      "https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=1400&q=80",
+      "https://images.unsplash.com/photo-1521782462922-9318be1cfd05?w=1400&q=80",
+    ],
+  },
+  {
+    id: 3,
+    category: "design",
+    tag: "طراحی کابینت",
+    title: "طراحی سه‌بعدی کلاسیک",
+    sub: "رندر اختصاصی پیش از اجرا",
+    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=80",
+      "https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=1400&q=80",
+    ],
+  },
+  {
+    id: 4,
+    category: "cabinet",
+    tag: "ساخت کابینت",
+    title: "کابینت ممبران مات",
+    sub: "آشپزخانه آپارتمانی",
+    img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1400&q=80",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400&q=80",
+      "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1400&q=80",
+    ],
+  },
+  {
+    id: 5,
+    category: "cabin",
+    tag: "ساخت کلبه",
+    title: "آلاچیق و کلبه باغی",
+    sub: "فضای باز، کرج",
+    img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1400&q=80",
+      "https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=1400&q=80",
+      "https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=1400&q=80",
+    ],
+  },
+  {
+    id: 6,
+    category: "design",
+    tag: "طراحی کابینت",
+    title: "چیدمان مدرن مینیمال",
+    sub: "طراحی نور و متریال",
+    img: "https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=1400&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80",
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=1400&q=80",
+    ],
+  },
+  {
+    id: 7,
+    category: "cabinet",
+    tag: "ساخت کابینت",
+    title: "کابینت چوب طبیعی",
+    sub: "سبک روستیک، اصفهان",
+    img: "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1400&q=80",
+      "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?w=1400&q=80",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400&q=80",
+    ],
+  },
+  {
+    id: 8,
+    category: "cabin",
+    tag: "ساخت کلبه",
+    title: "کلبه دو طبقه چوبی",
+    sub: "اقامتگاه بوم‌گردی",
+    img: "https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=1400&q=80",
+      "https://images.unsplash.com/photo-1521782462922-9318be1cfd05?w=1400&q=80",
+      "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1400&q=80",
+    ],
+  },
+  {
+    id: 9,
+    category: "design",
+    tag: "طراحی کابینت",
+    title: "رندر آشپزخانه باز",
+    sub: "اپن به نشیمن",
+    img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=1400&q=80",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80",
+    ],
+  },
+];
+
+export const filters = [
+  { key: "all", label: "همه" },
+  { key: "cabinet", label: "ساخت کابینت" },
+  { key: "cabin", label: "ساخت کلبه" },
+  { key: "design", label: "طراحی کابینت" },
+];

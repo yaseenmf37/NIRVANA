@@ -1,0 +1,92 @@
+"use client";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const serviceLinks = [
+  { href: "/services/cabinet", label: "ساخت کابینت" },
+  { href: "/services/cabin", label: "ساخت کلبه" },
+  { href: "/services/design", label: "طراحی کابینت" },
+];
+
+const navLinks = [
+  { href: "/", label: "خانه" },
+  { href: "/projects", label: "نمونه‌کارها" },
+  { href: "/about", label: "درباره ما" },
+  { href: "/faq", label: "سوالات متداول" },
+  { href: "/contact", label: "تماس با ما" },
+];
+
+export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 30);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // بستن منوی موبایل هنگام تغییر صفحه
+  useEffect(() => setOpen(false), [pathname]);
+
+  const isActive = (href) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const servicesActive = pathname.startsWith("/services");
+
+  return (
+    <header className={`header ${scrolled ? "scrolled" : ""}`}>
+      <div className="container header__inner">
+        <Link href="/" className="logo">
+          <span className="logo__mark">N</span>
+          <span className="logo__text">
+            <strong>کابینت لوکس</strong>
+            <small>طراحی • ساخت • اجرا</small>
+          </span>
+        </Link>
+
+        <nav className={`nav ${open ? "open" : ""}`}>
+          <Link href="/" className={isActive("/") ? "is-active" : ""}>
+            خانه
+          </Link>
+
+          <div className={`nav__dropdown ${servicesActive ? "is-active" : ""}`}>
+            <span className="nav__dropdown-label">خدمات ▾</span>
+            <div className="nav__menu">
+              {serviceLinks.map((l) => (
+                <Link key={l.href} href={l.href}>
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {navLinks.slice(1).map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={isActive(l.href) ? "is-active" : ""}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
+        <a href="tel:09121234567" className="btn btn--ghost header__phone">
+          <span className="icon-phone" />
+          ۰۹۱۲ ۱۲۳ ۴۵۶۷
+        </a>
+
+        <button
+          className={`nav-toggle ${open ? "open" : ""}`}
+          aria-label="منو"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span /><span /><span />
+        </button>
+      </div>
+    </header>
+  );
+}
