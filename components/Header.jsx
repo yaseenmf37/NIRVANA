@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/projects", label: "نمونه‌کارها" },
   { href: "/about", label: "درباره ما" },
   { href: "/faq", label: "سوالات متداول" },
+  { href: "/form", label: "فرم درخواست" },
   { href: "/contact", label: "تماس با ما" },
 ];
 

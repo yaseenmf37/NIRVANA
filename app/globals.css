@@ -371,6 +371,158 @@ section { padding: 90px 0; }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); }
 .field select option { background: var(--bg); }
 .form-note { font-size: .88rem; text-align: center; min-height: 1.2em; }
+
+/* ===== Step form (فرم قدم‌به‌قدم) ===== */
+.form-section { background: var(--bg-soft); }
+.stepform {
+  max-width: 720px; margin: 0 auto;
+  background: linear-gradient(180deg, var(--panel), var(--bg-soft));
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: clamp(1.6rem, 4vw, 3rem); box-shadow: var(--shadow);
+}
+.stepform__progress {
+  color: var(--muted); font-size: .85rem; margin-bottom: 2.2rem;
+  display: flex; align-items: center; gap: 1rem; white-space: nowrap;
+}
+.stepform__bar { flex: 1; height: 5px; background: rgba(205,162,87,.12); border-radius: 99px; overflow: hidden; }
+.stepform__bar > span {
+  display: block; height: 100%; border-radius: 99px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-soft)); transition: width .45s ease;
+}
+
+.stepform__list { display: flex; flex-direction: column; gap: .4rem; }
+
+.qstep {
+  display: flex; gap: 1rem; padding: 1rem 1.1rem; border-radius: 14px;
+  border: 1px solid transparent;
+  transition: opacity .4s ease, transform .4s ease, background .3s ease, border-color .3s ease;
+}
+.qstep__no {
+  flex: none; width: 30px; height: 30px; display: grid; place-items: center;
+  border-radius: 50%; border: 1px solid var(--line);
+  color: var(--gold); font-weight: 800; font-size: .85rem; margin-top: .15rem;
+  transition: .3s;
+}
+.qstep__body { flex: 1; min-width: 0; }
+.qstep__q { color: var(--text); line-height: 1.6; transition: font-size .35s ease; }
+
+/* آیکن لامپ راهنما + پاپ‌آپ */
+.infolamp { position: relative; display: inline-flex; vertical-align: middle; margin-inline-start: .45rem; }
+.infolamp__btn {
+  display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(205,162,87,.1); border: 1px solid var(--line); color: var(--gold);
+  cursor: pointer; transition: .2s; flex: none;
+}
+.infolamp__btn:hover { background: rgba(205,162,87,.2); border-color: var(--gold); transform: translateY(-1px); }
+.infolamp__pop {
+  position: absolute; top: calc(100% + 12px); right: 0; z-index: 20; width: min(320px, calc(100vw - 3rem));
+  background: rgba(18,15,12,.98); backdrop-filter: blur(14px);
+  border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.1rem;
+  box-shadow: var(--shadow); display: none; flex-direction: column; gap: .5rem;
+}
+.infolamp.is-open .infolamp__pop { display: flex; }
+.infolamp__pop::before {
+  content: ''; position: absolute; top: -6px; right: 14px; width: 12px; height: 12px;
+  background: rgba(18,15,12,.98); border-top: 1px solid var(--line); border-right: 1px solid var(--line);
+  transform: rotate(-45deg);
+}
+.infolamp__title { color: var(--gold-soft); font-weight: 700; font-size: .95rem; }
+.infolamp__row { color: var(--muted); font-size: .85rem; line-height: 1.85; font-weight: 400; }
+
+/* سوال فعال: بزرگ، پررنگ و برجسته */
+.qstep--active {
+  background: rgba(205,162,87,.05);
+  border-color: var(--line);
+}
+.qstep--active .qstep__no {
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+  color: #221a0c; border-color: transparent; transform: scale(1.05);
+}
+.qstep--active .qstep__q {
+  font-size: clamp(1.25rem, 3.4vw, 1.75rem); font-weight: 800; line-height: 1.5;
+  margin-bottom: 1.3rem;
+}
+
+/* سوال تاییدشده: کم‌رنگ و کوچک، قابل کلیک برای ویرایش */
+.qstep--done { opacity: .55; cursor: pointer; }
+.qstep--done:hover { opacity: 1; background: rgba(255,255,255,.02); }
+.qstep--done .qstep__q { font-size: .92rem; color: var(--muted); margin-bottom: .35rem; }
+
+/* سوال بعدی: خیلی کم‌رنگ، انگار هنوز نرسیدی */
+.qstep--upcoming { opacity: .32; }
+.qstep--upcoming .qstep__q { font-size: .92rem; }
+.qstep--upcoming .qstep__no { opacity: .6; }
+
+/* ورودی‌ها */
+.qstep__field { max-width: 480px; margin: 0; }
+.qstep__field input, .qstep__field select, .qstep__field textarea { width: 100%; }
+
+/* چیپ‌های چندانتخابی */
+.chips { display: flex; flex-wrap: wrap; gap: .7rem; max-width: 560px; }
+.chip {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .6rem 1.05rem; border-radius: 99px; cursor: pointer;
+  background: var(--bg-soft); border: 1px solid var(--line);
+  color: var(--text); font-size: .92rem; transition: .2s;
+}
+.chip:hover { border-color: var(--gold); }
+.chip--on {
+  background: rgba(205,162,87,.14); border-color: var(--gold); color: var(--gold-soft);
+}
+.chip__tick { font-size: .75rem; color: var(--gold); }
+
+/* آپلود فایل + پیش‌نمایش عکس */
+.qstep__file { display: flex; flex-direction: column; gap: 1rem; }
+.filedrop {
+  position: relative; display: inline-flex; align-items: center; gap: .7rem;
+  padding: 1rem 1.4rem; border-radius: 12px; cursor: pointer; max-width: max-content;
+  border: 1px dashed var(--line); color: var(--muted);
+  background: var(--bg); transition: .2s;
+}
+.filedrop:hover { border-color: var(--gold); color: var(--gold-soft); }
+.filedrop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.filedrop__icon {
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px;
+  background: rgba(205,162,87,.1); color: var(--gold); font-size: 1rem;
+}
+.filepreview {
+  max-width: 300px; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--line);
+}
+.filepreview img { width: 100%; height: auto; display: block; }
+.filechip {
+  color: var(--gold-soft); font-size: .9rem; padding: .6rem .9rem;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 10px; max-width: max-content;
+}
+
+/* دکمه‌ها */
+.qstep__actions { display: flex; align-items: center; gap: 1.2rem; margin-top: 1.4rem; flex-wrap: wrap; }
+.qstep__back, .qstep__skip {
+  background: none; border: 0; color: var(--muted); font-size: .9rem;
+  cursor: pointer; transition: color .2s; padding: .3rem 0;
+}
+.qstep__back:hover, .qstep__skip:hover { color: var(--gold-soft); }
+
+/* جواب سوالات تاییدشده */
+.qstep__answer { display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; }
+.qstep__answer-val { color: var(--gold-soft); font-size: .95rem; }
+.qstep__thumb { height: 34px; width: 34px; object-fit: cover; border-radius: 7px; border: 1px solid var(--line); }
+.qstep__edit {
+  color: var(--muted); font-size: .74rem; border: 1px solid var(--line);
+  border-radius: 6px; padding: .1rem .55rem;
+}
+
+/* صفحه موفقیت */
+.stepform--done { display: grid; place-items: center; min-height: 320px; }
+.stepform__success { text-align: center; }
+.stepform__check {
+  width: 74px; height: 74px; margin: 0 auto 1.4rem; display: grid; place-items: center;
+  border-radius: 50%; background: rgba(205,162,87,.12); border: 1px solid var(--gold);
+  color: var(--gold); font-size: 2rem;
+}
+.stepform__success h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: .6rem; }
+.stepform__success p { color: var(--muted); }
+.stepform__redirect { display: block; margin-top: 1rem; color: var(--gold-soft); font-size: .82rem; }
 .form-note.ok { color: #7bc47f; }
 
 /* ===== Footer ===== */
