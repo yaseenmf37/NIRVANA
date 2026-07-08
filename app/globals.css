@@ -73,7 +73,9 @@ button { font-family: inherit; }
 .header {
   position: fixed; inset: 0 0 auto 0; z-index: 100;
   padding: 1.1rem 0;
-  transition: .3s ease;
+  /* backdrop-filter عمداً انیمیت نمی‌شود تا هنگام باز شدن منو، آنی حذف شود
+     و containing block برای منوی fixed باقی نماند */
+  transition: background .3s ease, padding .3s ease, border-color .3s ease;
 }
 .header.scrolled {
   background: rgba(12,10,8,.85);
@@ -81,6 +83,9 @@ button { font-family: inherit; }
   border-bottom: 1px solid var(--line);
   padding: .7rem 0;
 }
+/* هنگام باز بودن منوی موبایل، backdrop-filter نباید containing block بسازد
+   وگرنه منوی fixed به‌جای کل صفحه، نسبت به هدر کوتاه می‌شود */
+.header.menu-open { backdrop-filter: none; -webkit-backdrop-filter: none; }
 .header__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 
 .logo { display: flex; align-items: center; gap: .7rem; }
@@ -404,27 +409,27 @@ section { padding: 90px 0; }
   transition: .3s;
 }
 .qstep__body { flex: 1; min-width: 0; }
-.qstep__q { color: var(--text); line-height: 1.6; transition: font-size .35s ease; }
+.qstep__q { color: var(--text); line-height: 1.6; transition: font-size .35s ease; position: relative; }
 
 /* آیکن لامپ راهنما + پاپ‌آپ */
-.infolamp { position: relative; display: inline-flex; vertical-align: middle; margin-inline-start: .45rem; }
+.infolamp { display: inline-flex; vertical-align: middle; margin-inline-start: .45rem; }
 .infolamp__btn {
   display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
   background: rgba(205,162,87,.1); border: 1px solid var(--line); color: var(--gold);
   cursor: pointer; transition: .2s; flex: none;
 }
 .infolamp__btn:hover { background: rgba(205,162,87,.2); border-color: var(--gold); transform: translateY(-1px); }
+/* پاپ‌آپ بالای سوال باز می‌شود و نسبت به کل خط سوال جای می‌گیرد تا از صفحه بیرون نزند */
 .infolamp__pop {
-  position: absolute; top: calc(100% + 12px); right: 0; z-index: 20; width: min(320px, calc(100vw - 3rem));
+  position: absolute; bottom: calc(100% + 10px); right: 0; z-index: 20;
+  width: min(340px, 100%);
   background: rgba(18,15,12,.98); backdrop-filter: blur(14px);
   border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.1rem;
   box-shadow: var(--shadow); display: none; flex-direction: column; gap: .5rem;
 }
 .infolamp.is-open .infolamp__pop { display: flex; }
-.infolamp__pop::before {
-  content: ''; position: absolute; top: -6px; right: 14px; width: 12px; height: 12px;
-  background: rgba(18,15,12,.98); border-top: 1px solid var(--line); border-right: 1px solid var(--line);
-  transform: rotate(-45deg);
+@media (hover: hover) {
+  .infolamp:hover .infolamp__pop { display: flex; }
 }
 .infolamp__title { color: var(--gold-soft); font-weight: 700; font-size: .95rem; }
 .infolamp__row { color: var(--muted); font-size: .85rem; line-height: 1.85; font-weight: 400; }
@@ -621,11 +626,20 @@ section { padding: 90px 0; }
 }
 @media (max-width: 680px) {
   .nav {
-    position: fixed; inset: 0 0 0 30%; flex-direction: column; gap: 1.6rem;
+    position: fixed; top: 0; right: 0; left: 30%;
+    height: 100vh; height: 100dvh; overflow-y: auto;
+    flex-direction: column; gap: 1.6rem;
     background: rgba(12,10,8,.97); backdrop-filter: blur(14px);
     padding: 6rem 2rem; transform: translateX(100%); transition: transform .3s; z-index: 99;
   }
   .nav.open { transform: translateX(0); }
+  /* ناحیه‌ی بیرون منو: مات و کلیک‌پذیر برای بستن */
+  .nav-backdrop {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; z-index: 98;
+    background: rgba(6,5,3,.55); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+    animation: navFade .25s ease;
+  }
+  @keyframes navFade { from { opacity: 0; } to { opacity: 1; } }
   .nav__menu {
     position: static; opacity: 1; visibility: visible; transform: none;
     background: transparent; border: 0; box-shadow: none; padding: .2rem 1rem 0;

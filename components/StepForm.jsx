@@ -279,17 +279,29 @@ export default function StepForm() {
 
 function InfoLamp({ items, selected }) {
   const [open, setOpen] = useState(false);
+  const ref = useRef(null);
   const active = items.find((it) => it.t === selected) || items[0];
+
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("touchstart", onDoc);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("touchstart", onDoc);
+    };
+  }, [open]);
+
   return (
-    <span
-      className={`infolamp ${open ? "is-open" : ""}`}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
+    <span ref={ref} className={`infolamp ${open ? "is-open" : ""}`}>
       <button
         type="button"
         className="infolamp__btn"
         aria-label={`توضیح مدل ${active.t}`}
+        aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
       >
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">

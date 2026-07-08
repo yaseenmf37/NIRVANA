@@ -28,12 +28,18 @@ export default function Header() {
   // بستن منوی موبایل هنگام تغییر صفحه
   useEffect(() => setOpen(false), [pathname]);
 
+  // قفل اسکرول صفحه پشت منوی موبایل هنگام باز بودن
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
   const isActive = (href) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
   const servicesActive = pathname.startsWith("/services");
 
   return (
-    <header className={`header ${scrolled ? "scrolled" : ""}`}>
+    <header className={`header ${scrolled ? "scrolled" : ""} ${open ? "menu-open" : ""}`}>
       <div className="container header__inner">
         <Link href="/" className="logo">
           <span className="logo__mark">N</span>
@@ -42,6 +48,8 @@ export default function Header() {
             <small>طراحی • آنالیز • کات مستر</small>
           </span>
         </Link>
+
+        {open && <div className="nav-backdrop" onClick={() => setOpen(false)} aria-hidden="true" />}
 
         <nav className={`nav ${open ? "open" : ""}`}>
           <Link href="/" className={isActive("/") ? "is-active" : ""}>
