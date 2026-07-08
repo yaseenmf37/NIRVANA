@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
   const service = services[slug];
   if (!service) return {};
   return {
-    title: `${service.title} | کابینت لوکس`,
+    title: `${service.title} | کابینت نیروانا`,
     description: service.lead,
   };
 }

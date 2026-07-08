@@ -4,8 +4,8 @@ import Materials from "@/components/Materials";
 import CTA from "@/components/CTA";
 
 export const metadata = {
-  title: "درباره ما | کابینت لوکس",
-  description: "آشنایی با تیم و ارزش‌های کابینت لوکس در زمینه طراحی و ساخت کابینت و کلبه چوبی.",
+  title: "درباره ما | کابینت نیروانا",
+  description: "آشنایی با تیم و ارزش‌های کابینت نیروانا در زمینه طراحی و ساخت کابینت و کلبه چوبی.",
 };
 
 const values = [
@@ -19,7 +19,7 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="درباره ما"
-        title="درباره کابینت لوکس"
+        title="درباره کابینت نیروانا"
         lead="تیمی که زیبایی، کارایی و کیفیت را در فضای شما ترکیب می‌کند."
         image="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80"
       />

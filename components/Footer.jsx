@@ -8,8 +8,8 @@ export default function Footer() {
           <Link href="/" className="logo">
             <span className="logo__mark">N</span>
             <span className="logo__text">
-              <strong>کابینت لوکس</strong>
-              <small>طراحی • ساخت • اجرا</small>
+              <strong>کابینت نیروانا</strong>
+              <small>طراحی • آنالیز • کات مستر</small>
             </span>
           </Link>
           <p>خلق فضاهای زیبا و ماندگار با بهترین کیفیت.</p>
@@ -23,9 +23,8 @@ export default function Footer() {
         </div>
         <div className="footer__col">
           <h4>خدمات</h4>
-          <Link href="/services/cabinet">ساخت کابینت</Link>
-          <Link href="/services/cabin">ساخت کلبه چوبی</Link>
           <Link href="/services/design">طراحی کابینت</Link>
+          <Link href="/services/cutmaster">آنالیز و کات مستر</Link>
         </div>
         <div className="footer__col">
           <h4>ما را دنبال کنید</h4>
@@ -37,7 +36,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer__bottom container">
-        <span>© ۱۴۰۳ کابینت لوکس — تمامی حقوق محفوظ است.</span>
+        <span>© ۱۴۰۳ کابینت نیروانا — تمامی حقوق محفوظ است.</span>
       </div>
     </footer>
   );

@@ -20,18 +20,6 @@ export default function Contact() {
   return (
     <section className="contact" id="contact">
       <div className="container contact__inner">
-        <div className="contact__info reveal">
-          <span className="section-head__eyebrow">تماس با ما</span>
-          <h2>بیایید با هم صحبت کنیم</h2>
-          <p>فرم را پر کنید یا از راه‌های زیر با ما در ارتباط باشید.</p>
-          <ul className="contact__list">
-            <li><span className="ci">☎</span> <a href="tel:09121234567">۰۹۱۲ ۱۲۳ ۴۵۶۷</a></li>
-            <li><span className="ci">✉</span> <a href="mailto:info@cabinetluxe.ir">info@cabinetluxe.ir</a></li>
-            <li><span className="ci">⌖</span> تهران، خیابان نمونه، پلاک ۱۲</li>
-            <li><span className="ci">◷</span> شنبه تا پنجشنبه، ۹ تا ۱۸</li>
-          </ul>
-        </div>
-
         <form className="contact__form reveal" onSubmit={handleSubmit} noValidate>
           <div className="field">
             <label>نام و نام خانوادگی</label>
@@ -42,11 +30,12 @@ export default function Contact() {
             <input type="tel" name="phone" placeholder="۰۹۱۲..." />
           </div>
           <div className="field">
-            <label>نوع پروژه</label>
-            <select name="service" defaultValue="cabinet">
-              <option value="cabinet">ساخت کابینت</option>
-              <option value="cabin">ساخت کلبه چوبی</option>
-              <option value="design">طراحی کابینت</option>
+            <label>نوع کابینت</label>
+            <select name="cabinetType" defaultValue="modern">
+              <option value="modern">مدرن</option>
+              <option value="postmodern">پست مدرن</option>
+              <option value="classic">کلاسیک</option>
+              <option value="neoclassic">نئوکلاسیک</option>
             </select>
           </div>
           <div className="field">
@@ -58,6 +47,18 @@ export default function Contact() {
           </button>
           {note && <p className={`form-note ${note.includes("ممنون") ? "ok" : ""}`}>{note}</p>}
         </form>
+
+        <div className="contact__info reveal">
+          <span className="section-head__eyebrow">تماس با ما</span>
+          <h2>بیایید با هم صحبت کنیم</h2>
+          <p>فرم را پر کنید یا از راه‌های زیر با ما در ارتباط باشید.</p>
+          <ul className="contact__list">
+            <li><span className="ci">☎</span> <a href="tel:09121234567">۰۹۱۲ ۱۲۳ ۴۵۶۷</a></li>
+            <li><span className="ci">✉</span> <a href="mailto:info@cabinetluxe.ir">info@cabinetluxe.ir</a></li>
+            <li><span className="ci">⌖</span> تهران، خیابان نمونه، پلاک ۱۲</li>
+            <li><span className="ci">◷</span> شنبه تا پنجشنبه، ۹ تا ۱۸</li>
+          </ul>
+        </div>
       </div>
     </section>
   );

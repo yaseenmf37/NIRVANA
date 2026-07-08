@@ -130,10 +130,13 @@ button { font-family: inherit; }
 /* ===== Hero ===== */
 .hero {
   position: relative;
-  padding: 170px 0 90px;
+  padding: 200px 0 120px;
   background:
-    radial-gradient(900px 500px at 85% 10%, rgba(205,162,87,.12), transparent 60%),
-    linear-gradient(180deg, #0c0a08, #15110d 70%, var(--bg));
+    linear-gradient(180deg, rgba(12,10,8,.78), rgba(12,10,8,.62) 55%, var(--bg) 100%),
+    radial-gradient(900px 500px at 85% 10%, rgba(205,162,87,.14), transparent 60%),
+    url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=80');
+  background-size: cover;
+  background-position: center;
 }
 .hero__inner { display: grid; }
 .hero__content { max-width: 620px; }
@@ -147,8 +150,8 @@ button { font-family: inherit; }
 .hero__actions { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
 
 /* Features */
+.features-section { padding: 1rem 0 5rem; }
 .features {
-  margin-top: 4.5rem;
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
 }
 .feature {
@@ -178,7 +181,17 @@ section { padding: 90px 0; }
 
 /* ===== Services ===== */
 .services { background: var(--bg-soft); }
-.services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+
+/* بخش خدمات صفحه اصلی با بک‌گراند سفید */
+.services--light { background: #ffffff; }
+.services--light .section-head__title { color: #1a1714; }
+.services--light .section-head__sub { color: #6b6156; }
+.services--light .section-head__eyebrow { color: var(--gold); }
+.services--light .service-card { background: #fbf9f6; border-color: rgba(26,23,20,.12); }
+.services--light .service-card:hover { border-color: var(--gold); }
+.services--light .service-card__body h3 { color: #1a1714; }
+.services--light .service-card__body p { color: #6b6156; }
+.services__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
 .service-card {
   background: var(--panel); border: 1px solid var(--line);
   border-radius: var(--radius); overflow: hidden; transition: .3s;
@@ -188,13 +201,28 @@ section { padding: 90px 0; }
 .service-card__img::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, transparent 40%, rgba(20,18,16,.85)); }
 .service-card__img--cabinet { background-image: linear-gradient(135deg,rgba(58,42,26,.6),rgba(26,19,13,.6)), url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80'); background-size: cover; background-position: center; }
 .service-card__img--cabin   { background-image: linear-gradient(135deg,rgba(46,51,32,.55),rgba(22,26,14,.6)), url('https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=800&q=80'); background-size: cover; background-position: center; }
-.service-card__img--design  { background-image: linear-gradient(135deg,rgba(51,35,56,.55),rgba(22,18,26,.6)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80'); background-size: cover; background-position: center; }
+.service-card__img--design    { background-image: linear-gradient(135deg,rgba(51,35,56,.55),rgba(22,18,26,.6)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80'); background-size: cover; background-position: center; }
+.service-card__img--cutmaster { background-image: linear-gradient(135deg,rgba(58,42,26,.6),rgba(26,19,13,.6)), url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80'); background-size: cover; background-position: center; }
 .service-card__body { padding: 1.6rem; position: relative; }
 .service-card__no { color: var(--gold); font-weight: 800; font-size: 1.4rem; opacity: .55; }
 .service-card__body h3 { font-size: 1.3rem; margin: .3rem 0 .6rem; }
 .service-card__body p { color: var(--muted); font-size: .92rem; margin-bottom: 1rem; }
 .link-arrow { color: var(--gold-soft); font-weight: 600; transition: .2s; }
 .link-arrow:hover { letter-spacing: .5px; }
+
+/* صفحه انتخاب خدمت */
+.services-choose { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
+.choose-card {
+  display: block; background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden; transition: .3s;
+}
+.choose-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: var(--shadow); }
+.choose-card__img { height: 200px; background-size: cover; background-position: center; position: relative; }
+.choose-card__img::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, transparent 45%, rgba(20,18,16,.8)); }
+.choose-card__body { padding: 1.8rem 2rem; }
+.choose-card__no { color: var(--gold); font-weight: 800; font-size: 1.4rem; opacity: .55; }
+.choose-card h2 { font-size: 1.5rem; margin: .3rem 0 .8rem; }
+.choose-card p { color: var(--muted); font-size: .95rem; margin-bottom: 1.2rem; line-height: 1.9; }
 
 /* ===== Projects ===== */
 .filters { display: flex; gap: .7rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
@@ -457,7 +485,12 @@ section { padding: 90px 0; }
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .header__phone { display: none; }
-  .features, .services__grid, .gallery, .materials__grid, .footer__inner, .steps { grid-template-columns: 1fr; }
+  .features, .gallery, .materials__grid, .footer__inner, .steps { grid-template-columns: 1fr; }
+  .services__grid, .services-choose { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .service-card__img, .choose-card__img { height: 130px; }
+  .service-card__body, .choose-card__body { padding: 1rem .9rem; }
+  .service-card__body h3, .choose-card h2 { font-size: 1.05rem; }
+  .service-card__body p, .choose-card p { font-size: .82rem; }
   .stats { flex-wrap: wrap; gap: 1.5rem; }
   section { padding: 60px 0; }
 }

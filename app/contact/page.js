@@ -2,7 +2,7 @@ import PageHero from "@/components/PageHero";
 import Contact from "@/components/Contact";
 
 export const metadata = {
-  title: "تماس با ما | کابینت لوکس",
+  title: "تماس با ما | کابینت نیروانا",
   description: "برای مشاوره رایگان، بازدید حضوری و دریافت قیمت با ما تماس بگیرید.",
 };
 

@@ -3,7 +3,7 @@ import Projects from "@/components/Projects";
 import CTA from "@/components/CTA";
 
 export const metadata = {
-  title: "نمونه‌کارها | کابینت لوکس",
+  title: "نمونه‌کارها | کابینت نیروانا",
   description: "گالری پروژه‌های ساخت کابینت، ساخت کلبه چوبی و طراحی کابینت.",
 };
 

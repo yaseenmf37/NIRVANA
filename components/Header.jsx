@@ -2,12 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const serviceLinks = [
-  { href: "/services/cabinet", label: "ساخت کابینت" },
-  { href: "/services/cabin", label: "ساخت کلبه" },
-  { href: "/services/design", label: "طراحی کابینت" },
-];
+import { serviceList } from "@/data/services";
 
 const navLinks = [
   { href: "/", label: "خانه" },
@@ -42,8 +37,8 @@ export default function Header() {
         <Link href="/" className="logo">
           <span className="logo__mark">N</span>
           <span className="logo__text">
-            <strong>کابینت لوکس</strong>
-            <small>طراحی • ساخت • اجرا</small>
+            <strong>کابینت نیروانا</strong>
+            <small>طراحی • آنالیز • کات مستر</small>
           </span>
         </Link>
 
@@ -53,11 +48,13 @@ export default function Header() {
           </Link>
 
           <div className={`nav__dropdown ${servicesActive ? "is-active" : ""}`}>
-            <span className="nav__dropdown-label">خدمات ▾</span>
+            <Link href="/services" className="nav__dropdown-label">
+              خدمات ▾
+            </Link>
             <div className="nav__menu">
-              {serviceLinks.map((l) => (
-                <Link key={l.href} href={l.href}>
-                  {l.label}
+              {serviceList.map((s) => (
+                <Link key={s.slug} href={`/services/${s.slug}`}>
+                  {s.title}
                 </Link>
               ))}
             </div>

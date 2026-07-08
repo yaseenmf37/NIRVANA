@@ -2,18 +2,17 @@ import Link from "next/link";
 import { serviceList } from "@/data/services";
 
 const imgClass = {
-  cabinet: "service-card__img--cabinet",
-  cabin: "service-card__img--cabin",
   design: "service-card__img--design",
+  cutmaster: "service-card__img--cutmaster",
 };
 
 export default function Services() {
   return (
-    <section className="services">
+    <section className="services services--light">
       <div className="container">
         <div className="section-head reveal">
           <span className="section-head__eyebrow">خدمات ما</span>
-          <h2 className="section-head__title">سه تخصص اصلی ما</h2>
+          <h2 className="section-head__title">دو تخصص اصلی ما</h2>
           <p className="section-head__sub">از ایده تا اجرا، در کنار شما هستیم</p>
         </div>
 
