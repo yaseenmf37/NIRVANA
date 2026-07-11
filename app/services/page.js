@@ -3,7 +3,7 @@ import PageHero from "@/components/PageHero";
 import { serviceList } from "@/data/services";
 
 export const metadata = {
-  title: "خدمات | کابینت نیروانا",
+  title: "خدمات | طراحی نیروانا",
   description: "به کدام بخش نیاز دارید؟ طراحی کابینت یا آنالیز و کات مستر.",
 };
 

@@ -2,7 +2,7 @@ import PageHero from "@/components/PageHero";
 import StepForm from "@/components/StepForm";
 
 export const metadata = {
-  title: "فرم درخواست | کابینت نیروانا",
+  title: "فرم درخواست | طراحی نیروانا",
   description: "درخواست خود را قدم‌به‌قدم ثبت کنید تا کارشناسان ما با شما تماس بگیرند.",
 };
 

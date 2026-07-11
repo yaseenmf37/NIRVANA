@@ -14,18 +14,16 @@ export default function About({ variant }) {
           <span className="section-head__eyebrow">درباره ما</span>
           <h2 className="about__title">ما زیبایی را به فضاهای شما می‌آوریم</h2>
           <p>
-            ما یک تیم متخصص در زمینه طراحی، ساخت و اجرای کابینت‌های مدرن و کلاسیک
-            و همچنین ساخت کلبه چوبی هستیم. هدف ما خلق فضایی است که ترکیبی از
-            زیبایی، کارایی و کیفیت باشد.
+            با بیش از ۱۵ سال تجربه در طراحی، ساخت و اجرای کابینت‌های مدرن و کلاسیک، طراحی سه‌بعدی، آنالیز و کات‌مستر، هدف من ارائه راهکارهایی است که زیبایی، کیفیت و کارایی را در کنار هم به فضای شما بیاورد. از انتخاب متریال تا اجرای نهایی، تمام مراحل با دقت و وسواس انجام می‌شود تا نتیجه‌ای ماندگار و حرفه‌ای خلق شود.
           </p>
           <ul className="about__list">
-            <li>بیش از ۱۰ سال تجربه در صنعت چوب</li>
-            <li>استفاده از یراق‌آلات و متریال اروپایی</li>
-            <li>تحویل به‌موقع و ضمانت کیفیت</li>
+            <li>بیش از ۱۵ سال تجربه در صنعت چوب</li>
+            <li>مشاوره تخصصی در انتخاب متریال مناسب</li>
+            <li>تحویل به‌موقع فایل‌های طراحی</li>
           </ul>
           <div className="stats">
             <div className="stat"><strong>۴۵۰+</strong><span>پروژه موفق</span></div>
-            <div className="stat"><strong>۱۰</strong><span>سال تجربه</span></div>
+            <div className="stat"><strong>۱۵</strong><span>سال تجربه</span></div>
             <div className="stat"><strong>۹۸٪</strong><span>رضایت مشتری</span></div>
           </div>
           <Link href={isPage ? "/contact" : "/about"} className="btn btn--primary">

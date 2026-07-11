@@ -499,6 +499,36 @@ section { padding: 90px 0; }
   color: var(--gold-soft); font-size: .9rem; padding: .6rem .9rem;
   background: var(--bg); border: 1px solid var(--line); border-radius: 10px; max-width: max-content;
 }
+.filelist { display: flex; flex-direction: column; gap: .6rem; }
+.fileitem {
+  display: flex; align-items: center; gap: .7rem;
+  padding: .5rem .7rem; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--bg);
+}
+.fileitem img {
+  width: 40px; height: 40px; object-fit: cover; border-radius: 8px;
+  border: 1px solid var(--line); flex: 0 0 auto;
+}
+.fileitem__icon {
+  display: grid; place-items: center; width: 40px; height: 40px; flex: 0 0 auto;
+  border-radius: 8px; background: rgba(205,162,87,.1); font-size: 1.1rem;
+}
+.fileitem__name {
+  flex: 1 1 auto; min-width: 0; color: var(--muted); font-size: .88rem;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.fileitem__remove {
+  flex: 0 0 auto; width: 26px; height: 26px; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: 7px; background: none;
+  color: var(--muted); font-size: 1.1rem; line-height: 1; cursor: pointer; transition: .2s;
+}
+.fileitem__remove:hover { border-color: #d9534f; color: #d9534f; }
+.qstep__files-ans { display: inline-flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.qstep__filepill {
+  color: var(--gold-soft); font-size: .82rem; padding: .15rem .55rem;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 7px;
+}
+.stepform__home { margin-top: 1.4rem; }
 
 /* دکمه‌ها */
 .qstep__actions { display: flex; align-items: center; gap: 1.2rem; margin-top: 1.4rem; flex-wrap: wrap; }

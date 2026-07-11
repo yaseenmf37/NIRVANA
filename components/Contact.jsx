@@ -29,7 +29,7 @@ export default function Contact() {
             <label>شماره تماس</label>
             <input type="tel" name="phone" placeholder="۰۹۱۲..." />
           </div>
-          <div className="field">
+          {/* <div className="field">
             <label>نوع کابینت</label>
             <select name="cabinetType" defaultValue="modern">
               <option value="modern">مدرن</option>
@@ -37,7 +37,7 @@ export default function Contact() {
               <option value="classic">کلاسیک</option>
               <option value="neoclassic">نئوکلاسیک</option>
             </select>
-          </div>
+          </div> */}
           <div className="field">
             <label>توضیحات</label>
             <textarea name="message" rows={4} placeholder="درباره پروژه‌تان بنویسید..." />
@@ -53,10 +53,10 @@ export default function Contact() {
           <h2>بیایید با هم صحبت کنیم</h2>
           <p>فرم را پر کنید یا از راه‌های زیر با ما در ارتباط باشید.</p>
           <ul className="contact__list">
-            <li><span className="ci">☎</span> <a href="tel:09121234567">۰۹۱۲ ۱۲۳ ۴۵۶۷</a></li>
+            <li><span className="ci">☎</span> <a href="tel:09121234567">09199826119</a></li>
             <li><span className="ci">✉</span> <a href="mailto:info@cabinetluxe.ir">info@cabinetluxe.ir</a></li>
-            <li><span className="ci">⌖</span> تهران، خیابان نمونه، پلاک ۱۲</li>
-            <li><span className="ci">◷</span> شنبه تا پنجشنبه، ۹ تا ۱۸</li>
+            {/* <li><span className="ci">⌖</span> تهران، خیابان نمونه، پلاک ۱۲</li> */}
+            <li><span className="ci">◷</span> شنبه تا پنجشنبه، ۹ تا ۲۱</li>
           </ul>
         </div>
       </div>

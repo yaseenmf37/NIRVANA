@@ -5,9 +5,9 @@ export default function Hero() {
     <section className="hero" id="home">
       <div className="container hero__inner">
         <div className="hero__content reveal">
-          <span className="hero__eyebrow">طراحی لوکس، کیفیت ماندگار</span>
+          <span className="hero__eyebrow">طراحی لوکس، دقت بی‌نهایت</span>
           <h1 className="hero__title">
-            کابینت‌هایی برای <span>زندگی بهتر</span>
+            خلق فضاهایی زیبا، <span>کاربردی و ماندگار</span>
           </h1>
           <p className="hero__desc">
             ما با ترکیب زیبایی، عملکرد و متریال‌های برتر، فضایی منحصربه‌فرد برای
@@ -18,7 +18,7 @@ export default function Hero() {
               مشاهده نمونه‌کارها <span className="arrow">←</span>
             </Link>
             <Link href="/contact" className="btn btn--outline">
-              دریافت مشاوره رایگان
+              دریافت مشاوره
             </Link>
           </div>
         </div>

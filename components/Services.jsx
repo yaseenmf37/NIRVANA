@@ -13,7 +13,7 @@ export default function Services() {
         <div className="section-head reveal">
           <span className="section-head__eyebrow">خدمات ما</span>
           <h2 className="section-head__title">دو تخصص اصلی ما</h2>
-          <p className="section-head__sub">از ایده تا اجرا، در کنار شما هستیم</p>
+          <p className="section-head__sub">به کدام بخش نیاز دارید؟</p>
         </div>
 
         <div className="services__grid">

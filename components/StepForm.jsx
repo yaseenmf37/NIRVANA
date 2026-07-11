@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const steps = [
   { key: "name", q: "نام و نام خانوادگی شما چیست؟", type: "text", placeholder: "نام شما", required: true },
@@ -10,7 +10,7 @@ const steps = [
     q: "نوع کابینت مدنظرتان؟",
     type: "select",
     options: ["مدرن", "پست مدرن", "کلاسیک", "نئوکلاسیک"],
-    required: true,
+    required: false,
     info: [
       { t: "مدرن", d: "خطوط ساده و صاف، سطوح براق و بدون منبت و تزئینات؛ ظاهری مینیمال و امروزی با رنگ‌های یکدست." },
       { t: "پست مدرن", d: "ترکیبی از مدرن و کلاسیک؛ فرم‌های ساده همراه با جزئیات، بافت و رنگ‌های جسورانه." },
@@ -39,13 +39,14 @@ const steps = [
 ];
 
 export default function StepForm() {
-  const router = useRouter();
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState({});
-  const [filePreview, setFilePreview] = useState(null); // { name, url|null }
+  const [files, setFiles] = useState([]); // [{ id, name, url|null }]
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
   const activeRef = useRef(null);
+  const fileIdRef = useRef(0);
+  const filesRef = useRef([]);
 
   useEffect(() => {
     if (activeRef.current) {
@@ -54,14 +55,12 @@ export default function StepForm() {
     }
   }, [current]);
 
-  useEffect(() => () => { if (filePreview?.url) URL.revokeObjectURL(filePreview.url); }, [filePreview]);
-
-  // بعد از ثبت، ۵ ثانیه بعد به صفحه اصلی می‌رود
-  useEffect(() => {
-    if (!done) return;
-    const t = setTimeout(() => router.push("/"), 5000);
-    return () => clearTimeout(t);
-  }, [done, router]);
+  // نگه‌داشتن آخرین لیست فایل‌ها برای پاک‌سازی هنگام خروج
+  useEffect(() => { filesRef.current = files; }, [files]);
+  useEffect(
+    () => () => filesRef.current.forEach((f) => f.url && URL.revokeObjectURL(f.url)),
+    []
+  );
 
   const setValue = (key, value) => {
     setAnswers((a) => ({ ...a, [key]: value }));
@@ -78,13 +77,24 @@ export default function StepForm() {
   };
 
   const onFile = (e) => {
-    const f = e.target.files?.[0];
-    setFilePreview((prev) => {
-      if (prev?.url) URL.revokeObjectURL(prev.url);
-      if (!f) return null;
-      return { name: f.name, url: f.type.startsWith("image/") ? URL.createObjectURL(f) : null };
+    const picked = Array.from(e.target.files || []);
+    e.target.value = ""; // تا بشود دوباره همان فایل را هم انتخاب کرد
+    if (!picked.length) return;
+    const added = picked.map((f) => ({
+      id: ++fileIdRef.current,
+      name: f.name,
+      url: f.type.startsWith("image/") ? URL.createObjectURL(f) : null,
+    }));
+    setFiles((prev) => [...prev, ...added]);
+    setError("");
+  };
+
+  const removeFile = (id) => {
+    setFiles((prev) => {
+      const target = prev.find((f) => f.id === id);
+      if (target?.url) URL.revokeObjectURL(target.url);
+      return prev.filter((f) => f.id !== id);
     });
-    setValue("file", f ? f.name : "");
   };
 
   const isEmpty = (step) => {
@@ -160,17 +170,31 @@ export default function StepForm() {
       return (
         <div className="qstep__file">
           <label className="filedrop">
-            <input type="file" onChange={onFile} />
+            <input type="file" multiple onChange={onFile} />
             <span className="filedrop__icon">⇧</span>
-            <span>{filePreview ? "تغییر فایل" : "انتخاب فایل یا عکس"}</span>
+            <span>{files.length ? "افزودن فایل یا عکس دیگر" : "انتخاب فایل یا عکس"}</span>
           </label>
-          {filePreview?.url && (
-            <div className="filepreview">
-              <img src={filePreview.url} alt="پیش‌نمایش" />
+          {files.length > 0 && (
+            <div className="filelist">
+              {files.map((f) => (
+                <div key={f.id} className={`fileitem ${f.url ? "fileitem--img" : ""}`}>
+                  {f.url ? (
+                    <img src={f.url} alt={f.name} />
+                  ) : (
+                    <span className="fileitem__icon">📎</span>
+                  )}
+                  <span className="fileitem__name">{f.name}</span>
+                  <button
+                    type="button"
+                    className="fileitem__remove"
+                    aria-label={`حذف ${f.name}`}
+                    onClick={() => removeFile(f.id)}
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
             </div>
-          )}
-          {filePreview && !filePreview.url && (
-            <div className="filechip">📎 {filePreview.name}</div>
           )}
         </div>
       );
@@ -194,9 +218,18 @@ export default function StepForm() {
   const renderAnswer = (step) => {
     const val = answers[step.key];
     if (step.key === "file") {
-      if (filePreview?.url) return <img className="qstep__thumb" src={filePreview.url} alt="" />;
-      if (filePreview) return <>📎 {filePreview.name}</>;
-      return "—";
+      if (!files.length) return "—";
+      return (
+        <span className="qstep__files-ans">
+          {files.map((f) =>
+            f.url ? (
+              <img key={f.id} className="qstep__thumb" src={f.url} alt="" />
+            ) : (
+              <span key={f.id} className="qstep__filepill">📎 {f.name}</span>
+            )
+          )}
+        </span>
+      );
     }
     if (Array.isArray(val)) return val.length ? val.join("، ") : "—";
     return val ? val : "—";
@@ -205,11 +238,13 @@ export default function StepForm() {
   if (done) {
     return (
       <div className="stepform stepform--done">
-        <div className="stepform__success reveal">
+        <div className="stepform__success reveal in">
           <div className="stepform__check">✓</div>
-          <h2>درخواست شما ارسال شد</h2>
-          <p>با شما تماس می‌گیریم. ممنون {answers.name || "دوست عزیز"}!</p>
-          <span className="stepform__redirect">تا چند لحظه‌ی دیگر به صفحه اصلی برمی‌گردید…</span>
+          <h2>فرم با موفقیت ارسال شد</h2>
+          <p>با شما به زودی تماس خواهیم گرفت. ممنون {answers.name || "دوست عزیز"}!</p>
+          <Link href="/" className="btn btn--primary stepform__home">
+            بازگشت به صفحه اصلی
+          </Link>
         </div>
       </div>
     );

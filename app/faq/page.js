@@ -3,7 +3,7 @@ import Faq from "@/components/Faq";
 import CTA from "@/components/CTA";
 
 export const metadata = {
-  title: "سوالات متداول | کابینت نیروانا",
+  title: "سوالات متداول | طراحی نیروانا",
   description: "پاسخ پرسش‌های رایج درباره ساخت کابینت، ساخت کلبه چوبی و طراحی کابینت.",
 };
 

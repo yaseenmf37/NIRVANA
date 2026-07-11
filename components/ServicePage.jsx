@@ -23,15 +23,15 @@ export default function ServicePage({ service }) {
             <span className="service-card__no">{service.no}</span>
             <h2 className="about__title">{service.title}</h2>
             <p>{service.intro}</p>
-            <Link href="/contact" className="btn btn--primary">
+            {/* <Link href="/contact" className="btn btn--primary">
               درخواست مشاوره <span className="arrow">←</span>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>
 
       {/* ویژگی‌ها */}
-      <section className="services">
+      {/* <section className="services">
         <div className="container">
           <div className="section-head reveal">
             <span className="section-head__eyebrow">چرا ما</span>
@@ -47,7 +47,7 @@ export default function ServicePage({ service }) {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* مراحل کار */}
       <section className="steps-sec">

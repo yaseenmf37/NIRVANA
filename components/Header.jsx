@@ -44,7 +44,7 @@ export default function Header() {
         <Link href="/" className="logo">
           <span className="logo__mark">N</span>
           <span className="logo__text">
-            <strong>کابینت نیروانا</strong>
+            <strong>طراحی نیروانا</strong>
             <small>طراحی • آنالیز • کات مستر</small>
           </span>
         </Link>
@@ -82,7 +82,7 @@ export default function Header() {
 
         <a href="tel:09121234567" className="btn btn--ghost header__phone">
           <span className="icon-phone" />
-          ۰۹۱۲ ۱۲۳ ۴۵۶۷
+          09199826119
         </a>
 
         <button
