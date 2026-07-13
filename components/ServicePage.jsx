@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import FeaturedProjects from "@/components/FeaturedProjects";
+import StepForm from "@/components/StepForm";
 
 export default function ServicePage({ service }) {
   return (
@@ -67,6 +68,20 @@ export default function ServicePage({ service }) {
           </div>
         </div>
       </section>
+
+      {/* فرم درخواست */}
+      {service.formVariant && (
+        <section className="form-section" id="request-form">
+          <div className="container">
+            <div className="section-head reveal">
+              <span className="section-head__eyebrow">ثبت درخواست</span>
+              <h2 className="section-head__title">{service.formTitle}</h2>
+              {service.formLead && <p className="section-head__sub">{service.formLead}</p>}
+            </div>
+            <StepForm variant={service.formVariant} />
+          </div>
+        </section>
+      )}
 
       {/* نمونه‌کارهای مرتبط */}
       <FeaturedProjects category={service.slug} limit={3} />

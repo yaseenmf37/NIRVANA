@@ -461,6 +461,7 @@ section { padding: 90px 0; }
 /* ورودی‌ها */
 .qstep__field { max-width: 480px; margin: 0; }
 .qstep__field input, .qstep__field select, .qstep__field textarea { width: 100%; }
+.qstep__custom { margin-top: .8rem; }
 
 /* چیپ‌های چندانتخابی */
 .chips { display: flex; flex-wrap: wrap; gap: .7rem; max-width: 560px; }

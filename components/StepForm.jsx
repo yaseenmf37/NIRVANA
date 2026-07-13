@@ -2,7 +2,15 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
-const steps = [
+const styleInfo = [
+  { t: "مدرن", d: "خطوط ساده و صاف، سطوح براق و بدون منبت و تزئینات؛ ظاهری مینیمال و امروزی با رنگ‌های یکدست." },
+  { t: "پست مدرن", d: "ترکیبی از مدرن و کلاسیک؛ فرم‌های ساده همراه با جزئیات، بافت و رنگ‌های جسورانه." },
+  { t: "کلاسیک", d: "طرح‌های سنتی با قاب‌بندی درب، منبت‌کاری و جزئیات چوبی؛ فضایی گرم و اشرافی." },
+  { t: "نئوکلاسیک", d: "بازآفرینی سبک کلاسیک با ظرافت مدرن؛ ساده‌تر از کلاسیک اما همچنان لوکس." },
+];
+
+// ── فرم عمومی (صفحه «فرم درخواست») ─────────────────────────────
+const genericSteps = [
   { key: "name", q: "نام و نام خانوادگی شما چیست؟", type: "text", placeholder: "نام شما", required: true },
   { key: "phone", q: "شماره تماس شما؟", type: "tel", placeholder: "۰۹۱۲...", required: true, numeric: true },
   {
@@ -11,12 +19,7 @@ const steps = [
     type: "select",
     options: ["مدرن", "پست مدرن", "کلاسیک", "نئوکلاسیک"],
     required: false,
-    info: [
-      { t: "مدرن", d: "خطوط ساده و صاف، سطوح براق و بدون منبت و تزئینات؛ ظاهری مینیمال و امروزی با رنگ‌های یکدست." },
-      { t: "پست مدرن", d: "ترکیبی از مدرن و کلاسیک؛ فرم‌های ساده همراه با جزئیات، بافت و رنگ‌های جسورانه." },
-      { t: "کلاسیک", d: "طرح‌های سنتی با قاب‌بندی درب، منبت‌کاری و جزئیات چوبی؛ فضایی گرم و اشرافی." },
-      { t: "نئوکلاسیک", d: "بازآفرینی سبک کلاسیک با ظرافت مدرن؛ ساده‌تر از کلاسیک اما همچنان لوکس." },
-    ],
+    info: styleInfo,
   },
   {
     key: "have",
@@ -38,7 +41,203 @@ const steps = [
   { key: "desc2", q: "توضیحات تکمیلی؟", type: "textarea", placeholder: "هر نکته‌ی دیگری که لازم است...", required: false },
 ];
 
-export default function StepForm() {
+// ── فرم «طراحی و آنالیز» (صفحه آنالیز و کات‌مستر) ───────────────
+const analysisSteps = [
+  { key: "name", q: "نام و نام خانوادگی شما چیست؟", type: "text", placeholder: "نام شما", required: true },
+  { key: "phone", q: "شماره تماس شما؟", type: "tel", placeholder: "۰۹۱۲...", required: true, numeric: true },
+  {
+    key: "style",
+    q: "سبک کابینت؟",
+    type: "choice",
+    options: ["مدرن", "پست مدرن", "نئوکلاسیک", "کلاسیک"],
+    info: styleInfo,
+  },
+  {
+    key: "body",
+    q: "جنس بدنه؟",
+    type: "choice",
+    options: ["MDF سفید", "ام‌دی‌اف رنگی"],
+    custom: "تایپ کنید",
+  },
+  {
+    key: "doorThickness",
+    q: "ضخامت درب‌ها؟",
+    type: "choice",
+    options: ["۱.۶ میل ام‌دی‌اف", "۱.۶ میل رنگ وکیوم", "۲۵ میل رنگ وکیوم"],
+    custom: "تایپ کنید",
+  },
+  {
+    key: "facadeThickness",
+    q: "ضخامت نماها؟",
+    type: "choice",
+    options: ["۱۶ میل", "۲۵ میل"],
+    custom: "تایپ کنید",
+  },
+  {
+    key: "wallHeight",
+    q: "ارتفاع دیواری‌ها؟",
+    type: "choice",
+    options: ["ارتفاع ۹۰ سانت", "تا سقف با تاج", "تا سقف بدون تاج"],
+  },
+  {
+    key: "wallDepth",
+    q: "عمق یونیت دیواری؟",
+    type: "choice",
+    options: ["۳۵ سانت (نرمال)", "۴۵ سانت", "هم‌تراز با زمینی"],
+  },
+  {
+    key: "baseSize",
+    q: "ابعاد یونیت زمینی؟",
+    type: "choice",
+    options: ["۵۵ سانت (استاندارد)", "۷۰ سانت برای ماشین توکار"],
+  },
+  {
+    key: "counterThickness",
+    q: "ضخامت صفحه؟",
+    type: "choice",
+    options: ["۱۲ میل", "۳ سانت", "۵ سانت"],
+    custom: "تایپ کنید",
+  },
+  {
+    key: "sink",
+    q: "سینک؟",
+    type: "choice",
+    options: ["توکار", "روکار"],
+    custom: "ابعاد",
+    customPlaceholder: "ابعاد سینک را بنویسید",
+  },
+  {
+    key: "gas",
+    q: "گاز؟",
+    type: "choice",
+    options: ["رومیزی", "مبله"],
+    custom: "ابعاد",
+    customPlaceholder: "ابعاد گاز را بنویسید",
+  },
+  {
+    key: "hood",
+    q: "هود؟",
+    type: "choice",
+    options: ["مخفی", "شومینه‌ای"],
+    custom: "ابعاد",
+    customPlaceholder: "ابعاد هود را بنویسید",
+  },
+  {
+    key: "drainerMat",
+    q: "جنس یونیت آبچکان؟",
+    type: "choice",
+    options: ["PVC", "MDF"],
+  },
+  {
+    key: "sinkMat",
+    q: "جنس یونیت سینک؟",
+    type: "choice",
+    options: ["PVC", "MDF"],
+  },
+  {
+    key: "railType",
+    q: "نوع ریل کشو؟",
+    type: "choice",
+    options: ["ساچمه‌ای", "تاندم", "بلوم"],
+    custom: "تایپ کنید",
+  },
+  {
+    key: "appliances",
+    q: "چه لوازم برقی دارید که باید در چیدمان لحاظ شود؟",
+    type: "multi",
+    options: [
+      "یخچال ساید‌بای‌ساید",
+      "یخچال دوقلو",
+      "ماشین لباس‌شویی",
+      "ماشین ظرف‌شویی",
+      "مایکروویو",
+      "فر توکار",
+      "گاز صفحه‌ای",
+      "هود",
+      "سینک ظرفشویی",
+      "قهوه‌ساز",
+    ],
+    sizeNote: "در صورت نیاز، ابعاد لوازم برقی را بنویسید",
+  },
+  { key: "file", q: "عکس آشپزخانه و اندازه‌ها را ارسال کنید.", type: "file", required: false },
+  {
+    key: "extras",
+    q: "مورد دیگری هست که باید لحاظ شود؟",
+    type: "textarea",
+    placeholder: "مثلاً سبد سوپری، جای ادویه، جای سطل زباله و ...",
+    required: false,
+  },
+];
+
+// ── فرم «فقط طراحی» (صفحه طراحی کابینت) ────────────────────────
+const designSteps = [
+  { key: "name", q: "نام و نام خانوادگی شما چیست؟", type: "text", placeholder: "نام شما", required: true },
+  { key: "phone", q: "شماره تماس شما؟", type: "tel", placeholder: "۰۹۱۲...", required: true, numeric: true },
+  {
+    key: "style",
+    q: "سبک کابینت؟",
+    type: "choice",
+    options: ["مدرن", "پست مدرن", "نئوکلاسیک"],
+    info: styleInfo,
+  },
+  {
+    key: "colorType",
+    q: "نوع رنگ؟",
+    type: "choice",
+    options: ["تک رنگ", "دو رنگ"],
+  },
+  {
+    key: "color",
+    q: "انتخاب رنگ؟",
+    type: "choice",
+    options: ["سفید براق", "سفید مات", "طوسی روشن", "طوسی تیره", "چوبی"],
+    custom: "تایپ کنید",
+  },
+  {
+    key: "fridge",
+    q: "نوع یخچال؟",
+    type: "choice",
+    options: ["ساید", "دوقلو"],
+  },
+  {
+    key: "oven",
+    q: "فر و ماکروفر؟",
+    type: "multi",
+    options: ["فر", "ماکروفر"],
+  },
+  {
+    key: "sink",
+    q: "سینک؟",
+    type: "choice",
+    options: ["روکار", "توکار"],
+  },
+  {
+    key: "hood",
+    q: "هود؟",
+    type: "choice",
+    options: ["مخفی", "شومینه‌ای"],
+  },
+  {
+    key: "gas",
+    q: "گاز؟",
+    type: "choice",
+    options: ["رومیزی", "مبله"],
+  },
+  {
+    key: "machines",
+    q: "تعداد ماشین؟",
+    type: "multi",
+    options: ["ماشین لباس‌شویی", "ماشین ظرف‌شویی"],
+    sizeNote: "در صورت نیاز، تعداد یا توضیح را بنویسید",
+  },
+  { key: "file", q: "عکس آشپزخانه و اندازه‌ها را ارسال کنید.", type: "file", required: false },
+];
+
+const variants = { analysis: analysisSteps, design: designSteps };
+
+export default function StepForm({ variant }) {
+  const steps = variants[variant] || genericSteps;
+
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState({});
   const [files, setFiles] = useState([]); // [{ id, name, url|null }]
@@ -140,22 +339,76 @@ export default function StepForm() {
         </div>
       );
     }
+    if (step.type === "choice") {
+      const isCustom = step.custom && val === step.custom;
+      return (
+        <>
+          <div className="chips">
+            {step.options.map((o) => (
+              <button
+                key={o}
+                type="button"
+                className={`chip ${val === o ? "chip--on" : ""}`}
+                onClick={() => setValue(step.key, o)}
+              >
+                {val === o && <span className="chip__tick">✓</span>}
+                {o}
+              </button>
+            ))}
+            {step.custom && (
+              <button
+                type="button"
+                className={`chip ${isCustom ? "chip--on" : ""}`}
+                onClick={() => setValue(step.key, step.custom)}
+              >
+                {isCustom && <span className="chip__tick">✓</span>}
+                {step.custom}
+              </button>
+            )}
+          </div>
+          {isCustom && (
+            <div className="field qstep__field qstep__custom">
+              <input
+                type="text"
+                value={answers[step.key + "__text"] ?? ""}
+                placeholder={step.customPlaceholder || "مورد نظر خود را بنویسید"}
+                onChange={(e) => setValue(step.key + "__text", e.target.value)}
+                onKeyDown={(e) => onKeyDown(e, false)}
+              />
+            </div>
+          )}
+        </>
+      );
+    }
     if (step.type === "multi") {
       const arr = Array.isArray(val) ? val : [];
       return (
-        <div className="chips">
-          {step.options.map((o) => (
-            <button
-              key={o}
-              type="button"
-              className={`chip ${arr.includes(o) ? "chip--on" : ""}`}
-              onClick={() => toggleMulti(step.key, o)}
-            >
-              {arr.includes(o) && <span className="chip__tick">✓</span>}
-              {o}
-            </button>
-          ))}
-        </div>
+        <>
+          <div className="chips">
+            {step.options.map((o) => (
+              <button
+                key={o}
+                type="button"
+                className={`chip ${arr.includes(o) ? "chip--on" : ""}`}
+                onClick={() => toggleMulti(step.key, o)}
+              >
+                {arr.includes(o) && <span className="chip__tick">✓</span>}
+                {o}
+              </button>
+            ))}
+          </div>
+          {step.sizeNote && (
+            <div className="field qstep__field qstep__custom">
+              <input
+                type="text"
+                value={answers[step.key + "__size"] ?? ""}
+                placeholder={step.sizeNote}
+                onChange={(e) => setValue(step.key + "__size", e.target.value)}
+                onKeyDown={(e) => onKeyDown(e, false)}
+              />
+            </div>
+          )}
+        </>
       );
     }
     if (step.type === "textarea") {
@@ -231,7 +484,19 @@ export default function StepForm() {
         </span>
       );
     }
-    if (Array.isArray(val)) return val.length ? val.join("، ") : "—";
+    if (step.type === "choice") {
+      if (!val) return "—";
+      if (step.custom && val === step.custom) {
+        return answers[step.key + "__text"] || step.custom;
+      }
+      return val;
+    }
+    if (Array.isArray(val)) {
+      const base = val.length ? val.join("، ") : "";
+      const note = step.sizeNote ? answers[step.key + "__size"] : "";
+      if (!base && !note) return "—";
+      return [base, note].filter(Boolean).join(" — ");
+    }
     return val ? val : "—";
   };
 
