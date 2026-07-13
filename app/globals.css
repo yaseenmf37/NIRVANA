@@ -646,10 +646,140 @@ section { padding: 90px 0; }
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in { opacity: 1; transform: translateY(0); }
 
+/* ===== Testimonials (رضایت مشتری) ===== */
+.tsm--soft { background: var(--bg-soft); }
+
+/* ویدئوها — کارت پوستری قابل کلیک */
+.tsm-videos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; }
+.tsm-video {
+  position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius);
+  border: 1px solid var(--line); overflow: hidden; cursor: pointer; padding: 0;
+  background-size: cover; background-position: center; text-align: right;
+  transition: border-color .3s, transform .3s, box-shadow .3s;
+}
+.tsm-video::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,8,6,.92) 8%, rgba(10,8,6,.15) 55%, rgba(10,8,6,.35));
+  transition: opacity .3s;
+}
+.tsm-video:hover {
+  border-color: var(--gold); transform: translateY(-5px);
+  box-shadow: 0 18px 40px -18px rgba(0,0,0,.7);
+}
+.tsm-video__play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 66px; height: 66px; border-radius: 50%; z-index: 2;
+  display: grid; place-items: center; color: #221a0c; padding-left: 3px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+  box-shadow: 0 0 0 8px rgba(205,162,87,.18), 0 10px 24px -6px rgba(0,0,0,.6);
+  transition: transform .3s;
+}
+.tsm-video:hover .tsm-video__play { transform: translate(-50%, -50%) scale(1.08); }
+.tsm-video__cap {
+  position: absolute; inset: auto 0 0 0; z-index: 2;
+  display: flex; flex-direction: column; gap: .5rem; padding: 1.2rem 1.2rem 1.3rem;
+}
+.tsm-video__quote { color: var(--text); font-size: .9rem; line-height: 1.8; }
+.tsm-video__who { display: flex; align-items: baseline; gap: .5rem; }
+.tsm-video__who strong { color: var(--gold-soft); font-weight: 700; }
+.tsm-video__who small { color: var(--muted); font-size: .8rem; }
+
+/* مدال ویدئو + پلیر سفارشی */
+.vlb {
+  position: fixed; inset: 0; z-index: 200; display: grid; place-items: center;
+  padding: 5vh 4vw; background: rgba(6,5,3,.9);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  animation: navFade .25s ease;
+}
+.vlb__stage { width: min(880px, 100%); display: flex; flex-direction: column; gap: 1rem; }
+.vplayer {
+  position: relative; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--line); background: #000; direction: ltr;
+  box-shadow: 0 30px 70px -20px rgba(0,0,0,.8);
+}
+.vplayer video { display: block; width: 100%; max-height: 74vh; object-fit: contain; background: #000; cursor: pointer; }
+.vplayer__big {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 84px; height: 84px; border-radius: 50%; z-index: 3; cursor: pointer;
+  display: grid; place-items: center; color: #221a0c; padding-left: 4px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+  box-shadow: 0 0 0 10px rgba(205,162,87,.16), 0 12px 30px -6px rgba(0,0,0,.6);
+  transition: transform .25s;
+}
+.vplayer__big:hover { transform: translate(-50%, -50%) scale(1.07); }
+.vplayer__bar {
+  position: absolute; inset: auto 0 0 0; z-index: 4;
+  display: flex; align-items: center; gap: .7rem; padding: .7rem 1rem 1rem;
+  background: linear-gradient(to top, rgba(8,6,4,.9), rgba(8,6,4,0));
+  opacity: 0; transform: translateY(6px); transition: opacity .25s, transform .25s;
+}
+.vplayer:hover .vplayer__bar, .vplayer:not(.is-playing) .vplayer__bar { opacity: 1; transform: translateY(0); }
+.vplayer__ico {
+  flex: none; width: 34px; height: 34px; display: grid; place-items: center;
+  border-radius: 9px; color: var(--text); background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08); cursor: pointer; transition: .2s;
+}
+.vplayer__ico:hover { color: #221a0c; background: var(--gold); border-color: transparent; }
+.vplayer__time { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vplayer__track {
+  flex: 1; height: 6px; border-radius: 99px; cursor: pointer;
+  background: rgba(255,255,255,.15); position: relative;
+}
+.vplayer__fill { position: absolute; inset: 0 auto 0 0; border-radius: 99px; background: linear-gradient(90deg, var(--gold), var(--gold-soft)); }
+.vplayer__knob {
+  position: absolute; top: 50%; right: 0; transform: translate(50%, -50%);
+  width: 13px; height: 13px; border-radius: 50%; background: var(--gold-soft);
+  box-shadow: 0 0 0 4px rgba(205,162,87,.25);
+}
+.vlb__caption { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.vlb__caption strong { color: var(--gold-soft); font-weight: 700; }
+.vlb__caption small { color: var(--muted); font-size: .82rem; margin-right: .5rem; }
+.vlb__caption p { color: var(--text); font-size: .92rem; }
+
+/* نظرات نوشتاری */
+.tsm-quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; }
+.tsm-quote {
+  background: linear-gradient(180deg, var(--panel), var(--bg-soft));
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.6rem 1.5rem; margin: 0; position: relative;
+  transition: border-color .25s, transform .25s;
+}
+.tsm-quote:hover { border-color: var(--gold); transform: translateY(-4px); }
+.tsm-stars { display: inline-flex; gap: .15rem; font-size: 1rem; color: rgba(205,162,87,.28); margin-bottom: .9rem; }
+.tsm-stars .is-on { color: var(--gold); }
+.tsm-quote__text { color: var(--text); line-height: 2; font-size: .95rem; margin-bottom: 1.3rem; }
+.tsm-quote__by { display: flex; align-items: center; gap: .8rem; }
+.tsm-quote__avatar {
+  width: 44px; height: 44px; flex: none; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 800; font-size: 1.1rem;
+  color: #221a0c; background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+}
+.tsm-quote__meta { display: flex; flex-direction: column; gap: .1rem; }
+.tsm-quote__meta strong { font-weight: 700; }
+.tsm-quote__meta small { color: var(--muted); font-size: .8rem; }
+
+/* گالری عکس */
+.tsm-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; }
+.tsm-photo {
+  position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius);
+  border: 1px solid var(--line); cursor: pointer; overflow: hidden;
+  background-size: cover; background-position: center; padding: 0;
+  transition: border-color .25s, transform .25s;
+}
+.tsm-photo:hover { border-color: var(--gold); transform: translateY(-4px); }
+.tsm-photo .card__zoom {
+  position: absolute; inset: auto 12px 12px auto;
+  width: 38px; height: 38px; display: grid; place-items: center;
+  border-radius: 10px; background: rgba(12,10,8,.6); color: var(--gold-soft);
+  opacity: 0; transform: scale(.8); transition: .25s;
+}
+.tsm-photo:hover .card__zoom { opacity: 1; transform: scale(1); }
+
 /* ===== Responsive ===== */
 @media (max-width: 980px) {
   .features { grid-template-columns: repeat(2, 1fr); }
   .services__grid, .gallery, .materials__grid { grid-template-columns: repeat(2, 1fr); }
+  .tsm-videos, .tsm-quotes, .tsm-photos { grid-template-columns: repeat(2, 1fr); }
   .about__inner, .contact__inner, .svc-intro__inner { grid-template-columns: 1fr; }
   .about__media { height: 380px; }
   .steps { grid-template-columns: repeat(2, 1fr); }
@@ -683,6 +813,8 @@ section { padding: 90px 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .header__phone { display: none; }
   .features, .gallery, .materials__grid, .footer__inner, .steps { grid-template-columns: 1fr; }
+  .tsm-videos, .tsm-quotes { grid-template-columns: 1fr; }
+  .tsm-photos { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .services__grid, .services-choose { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .service-card__img, .choose-card__img { height: 130px; }
   .service-card__body, .choose-card__body { padding: 1rem .9rem; }

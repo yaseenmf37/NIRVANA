@@ -23,6 +23,7 @@ export default function Footer() {
         <div className="footer__col">
           <h4>دسترسی سریع</h4>
           <Link href="/projects">نمونه‌کارها</Link>
+          <Link href="/testimonials">رضایت مشتری</Link>
           <Link href="/about">درباره ما</Link>
           <Link href="/faq">سوالات متداول</Link>
           <Link href="/contact">تماس با ما</Link>

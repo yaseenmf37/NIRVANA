@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
 
-export default function Lightbox({ project, onClose }) {
+export default function Lightbox({ project, onClose, startIndex = 0 }) {
   const images = project?.gallery?.length ? project.gallery : [project?.img];
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(startIndex);
 
   const next = useCallback(
     () => setIndex((i) => (i + 1) % images.length),
