@@ -24,7 +24,7 @@ export default function ServicesPage() {
         eyebrow="خدمات ما"
         title="به کدام بخش نیاز دارید؟"
         lead="یکی از دو تخصص ما را انتخاب کنید تا جزئیات کامل آن را ببینید."
-        image="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80"
+        image="/img/services-hero.jpg"
       />
 
       <section className="services">

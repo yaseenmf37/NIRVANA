@@ -18,7 +18,7 @@ export default function ServicePage({ service }) {
         <div className="container svc-intro__inner">
           <div
             className="svc-intro__img reveal"
-            style={{ backgroundImage: `url(${service.heroImg})` }}
+            style={{ backgroundImage: `url(${service.introImg || service.heroImg})` }}
           />
           <div className="svc-intro__text reveal">
             <span className="service-card__no">{service.no}</span>

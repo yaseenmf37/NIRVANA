@@ -14,9 +14,9 @@ export default function Hero() {
             خانه شما خلق می‌کنیم.
           </p>
           <div className="hero__actions">
-            <Link href="/projects" className="btn btn--primary">
+            {/* <Link href="/projects" className="btn btn--primary">
               مشاهده نمونه‌کارها <span className="arrow">←</span>
-            </Link>
+            </Link> */}
             <Link href="/contact" className="btn btn--outline">
               دریافت مشاوره
             </Link>

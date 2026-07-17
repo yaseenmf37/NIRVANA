@@ -6,11 +6,11 @@ import { serviceList } from "@/data/services";
 
 const navLinks = [
   { href: "/", label: "خانه" },
-  { href: "/projects", label: "نمونه‌کارها" },
-  { href: "/testimonials", label: "رضایت مشتری" },
+  // { href: "/projects", label: "نمونه‌کارها" },
+  // { href: "/testimonials", label: "رضایت مشتری" },
   { href: "/about", label: "درباره ما" },
   { href: "/faq", label: "سوالات متداول" },
-  { href: "/form", label: "فرم درخواست" },
+  // { href: "/form", label: "فرم درخواست" },
   { href: "/contact", label: "تماس با ما" },
 ];
 

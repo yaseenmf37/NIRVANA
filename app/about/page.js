@@ -21,7 +21,7 @@ export default function AboutPage() {
         eyebrow="درباره ما"
         title="درباره طراحی نیروانا"
         lead="خلق فضاهایی زیبا و کاربردی با طراحی دقیق، تجربه و توجه به جزئیات."
-        image="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80"
+        image="/img/about-hero.jpg"
       />
 
       <About variant="page" />

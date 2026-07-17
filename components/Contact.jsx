@@ -3,18 +3,41 @@ import { useState } from "react";
 
 export default function Contact() {
   const [note, setNote] = useState("");
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value.trim();
     const phone = form.phone.value.trim();
+    const message = form.message.value.trim();
     if (!name || !phone) {
       setNote("لطفاً نام و شماره تماس را وارد کنید.");
       return;
     }
-    setNote(`ممنون ${name} عزیز! درخواست شما ثبت شد، به‌زودی تماس می‌گیریم.`);
-    form.reset();
+    setSending(true);
+    setNote("");
+    try {
+      const res = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          formType: "فرم تماس (صفحه تماس با ما)",
+          fields: [
+            { label: "نام و نام خانوادگی", value: name },
+            { label: "شماره تماس", value: phone },
+            { label: "توضیحات", value: message },
+          ],
+        }),
+      });
+      if (!res.ok) throw new Error("send_failed");
+      setNote(`ممنون ${name} عزیز! درخواست شما ثبت شد، به‌زودی تماس می‌گیریم.`);
+      form.reset();
+    } catch {
+      setNote("ارسال با خطا مواجه شد. لطفاً دوباره تلاش کنید.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -42,8 +65,8 @@ export default function Contact() {
             <label>توضیحات</label>
             <textarea name="message" rows={4} placeholder="درباره پروژه‌تان بنویسید..." />
           </div>
-          <button type="submit" className="btn btn--primary btn--block">
-            ارسال درخواست
+          <button type="submit" className="btn btn--primary btn--block" disabled={sending}>
+            {sending ? "در حال ارسال…" : "ارسال درخواست"}
           </button>
           {note && <p className={`form-note ${note.includes("ممنون") ? "ok" : ""}`}>{note}</p>}
         </form>

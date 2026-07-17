@@ -63,7 +63,7 @@ const analysisSteps = [
     key: "doorThickness",
     q: "ضخامت درب‌ها؟",
     type: "choice",
-    options: ["۱.۶ میل ام‌دی‌اف", "۱.۶ میل رنگ وکیوم", "۲۵ میل رنگ وکیوم"],
+    options: ["۱.۶ میل ام‌دی‌اف", "۱.۶ میل رنگ وکیوم", "۲.۵ میل رنگ وکیوم"],
     custom: "تایپ کنید",
   },
   {
@@ -83,7 +83,8 @@ const analysisSteps = [
     key: "wallDepth",
     q: "عمق یونیت دیواری؟",
     type: "choice",
-    options: ["۳۵ سانت (نرمال)", "۴۵ سانت", "هم‌تراز با زمینی"],
+    options: ["۳۵ سانت (استاندارد)", "۴۵ سانت", "هم‌تراز با زمینی"],
+    custom: "تایپ کنید",
   },
   {
     key: "baseSize",
@@ -103,8 +104,7 @@ const analysisSteps = [
     q: "سینک؟",
     type: "choice",
     options: ["توکار", "روکار"],
-    custom: "ابعاد",
-    customPlaceholder: "ابعاد سینک را بنویسید",
+    sizeNote: "ابعاد سینک را بنویسید",
   },
   {
     key: "gas",
@@ -198,6 +198,7 @@ const designSteps = [
     q: "نوع یخچال؟",
     type: "choice",
     options: ["ساید", "دوقلو"],
+    sizeNote: "ابعاد یخچال را بنویسید",
   },
   {
     key: "oven",
@@ -210,12 +211,14 @@ const designSteps = [
     q: "سینک؟",
     type: "choice",
     options: ["روکار", "توکار"],
+    sizeNote: "ابعاد سینک را بنویسید",
   },
   {
     key: "hood",
     q: "هود؟",
     type: "choice",
     options: ["مخفی", "شومینه‌ای"],
+    sizeNote: "ابعاد هود را بنویسید",
   },
   {
     key: "gas",
@@ -235,14 +238,21 @@ const designSteps = [
 
 const variants = { analysis: analysisSteps, design: designSteps };
 
+const formTitles = {
+  analysis: "درخواست طراحی و آنالیز",
+  design: "درخواست طراحی کابینت",
+};
+
 export default function StepForm({ variant }) {
   const steps = variants[variant] || genericSteps;
+  const formType = formTitles[variant] || "فرم درخواست عمومی";
 
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState({});
   const [files, setFiles] = useState([]); // [{ id, name, url|null }]
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
+  const [sending, setSending] = useState(false);
   const activeRef = useRef(null);
   const fileIdRef = useRef(0);
   const filesRef = useRef([]);
@@ -283,6 +293,7 @@ export default function StepForm({ variant }) {
       id: ++fileIdRef.current,
       name: f.name,
       url: f.type.startsWith("image/") ? URL.createObjectURL(f) : null,
+      file: f, // فایل خام برای آپلود به بات
     }));
     setFiles((prev) => [...prev, ...added]);
     setError("");
@@ -302,14 +313,55 @@ export default function StepForm({ variant }) {
     return !val || String(val).trim() === "";
   };
 
+  // متن پاسخ هر سوال به‌صورت رشته‌ی ساده (برای ارسال به بات)
+  const answerText = (step) => {
+    const val = answers[step.key];
+    if (step.type === "choice") {
+      let base;
+      if (!val) base = "";
+      else if (step.custom && val === step.custom) base = answers[step.key + "__text"] || step.custom;
+      else base = val;
+      const note = step.sizeNote ? answers[step.key + "__size"] : "";
+      return [base, note].filter(Boolean).join(" — ");
+    }
+    if (Array.isArray(val)) {
+      const base = val.length ? val.join("، ") : "";
+      const note = step.sizeNote ? answers[step.key + "__size"] : "";
+      return [base, note].filter(Boolean).join(" — ");
+    }
+    return val ? String(val).trim() : "";
+  };
+
+  const submitForm = async () => {
+    setSending(true);
+    setError("");
+    const fields = steps
+      .filter((s) => s.type !== "file")
+      .map((s) => ({ label: s.q, value: answerText(s) }))
+      .filter((f) => f.value);
+    try {
+      const fd = new FormData();
+      fd.append("payload", JSON.stringify({ formType, fields }));
+      files.forEach((f) => f.file && fd.append("files", f.file, f.name));
+      const res = await fetch("/api/submit", { method: "POST", body: fd });
+      if (!res.ok) throw new Error("send_failed");
+      setDone(true);
+    } catch {
+      setError("ارسال با خطا مواجه شد. لطفاً اتصال اینترنت را بررسی و دوباره تلاش کنید.");
+    } finally {
+      setSending(false);
+    }
+  };
+
   const confirm = () => {
+    if (sending) return;
     const step = steps[current];
     if (step.required && isEmpty(step)) {
       setError("لطفاً این مورد را تکمیل کنید.");
       return;
     }
     if (current < steps.length - 1) setCurrent((c) => c + 1);
-    else setDone(true);
+    else submitForm();
   };
 
   const goBack = () => {
@@ -373,6 +425,17 @@ export default function StepForm({ variant }) {
                 value={answers[step.key + "__text"] ?? ""}
                 placeholder={step.customPlaceholder || "مورد نظر خود را بنویسید"}
                 onChange={(e) => setValue(step.key + "__text", e.target.value)}
+                onKeyDown={(e) => onKeyDown(e, false)}
+              />
+            </div>
+          )}
+          {step.sizeNote && (
+            <div className="field qstep__field qstep__custom">
+              <input
+                type="text"
+                value={answers[step.key + "__size"] ?? ""}
+                placeholder={step.sizeNote}
+                onChange={(e) => setValue(step.key + "__size", e.target.value)}
                 onKeyDown={(e) => onKeyDown(e, false)}
               />
             </div>
@@ -485,11 +548,13 @@ export default function StepForm({ variant }) {
       );
     }
     if (step.type === "choice") {
-      if (!val) return "—";
-      if (step.custom && val === step.custom) {
-        return answers[step.key + "__text"] || step.custom;
-      }
-      return val;
+      let base;
+      if (!val) base = "";
+      else if (step.custom && val === step.custom) base = answers[step.key + "__text"] || step.custom;
+      else base = val;
+      const note = step.sizeNote ? answers[step.key + "__size"] : "";
+      if (!base && !note) return "—";
+      return [base, note].filter(Boolean).join(" — ");
     }
     if (Array.isArray(val)) {
       const base = val.length ? val.join("، ") : "";
@@ -550,10 +615,14 @@ export default function StepForm({ variant }) {
                     {renderInput(step)}
                     {error && <p className="form-note">{error}</p>}
                     <div className="qstep__actions">
-                      <button type="button" className="btn btn--primary" onClick={confirm}>
-                        {current < steps.length - 1 ? "تایید و ادامه" : "ارسال درخواست"}
+                      <button type="button" className="btn btn--primary" onClick={confirm} disabled={sending}>
+                        {current < steps.length - 1
+                          ? "تایید و ادامه"
+                          : sending
+                          ? "در حال ارسال…"
+                          : "ارسال درخواست"}
                       </button>
-                      {current > 0 && (
+                      {current > 0 && !sending && (
                         <button type="button" className="qstep__back" onClick={goBack}>
                           سوال قبلی →
                         </button>

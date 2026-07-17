@@ -14,7 +14,7 @@ export default function FaqPage() {
         eyebrow="پشتیبانی"
         title="سوالات متداول"
         lead="پاسخ پرسش‌هایی که بیشتر از ما پرسیده می‌شود."
-        image="https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=1200&q=80"
+        image="/img/faq-hero.jpg"
       />
       <Faq />
       <CTA />
