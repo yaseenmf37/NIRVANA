@@ -18,7 +18,7 @@ export default function Hero() {
             نصب.
           </p>
           <div className="hm-hero__actions">
-            <Link href="/form" className="btn btn--primary hm-hero__btn">
+            <Link href="/services" className="btn btn--primary hm-hero__btn">
               شروع پروژه <span className="hm-chev">›</span>
             </Link>
             <Link href="/projects" className="btn btn--outline hm-hero__btn">
