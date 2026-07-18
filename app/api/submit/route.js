@@ -1,6 +1,7 @@
 // دریافت داده‌ی فرم‌ها + فایل‌ها و ارسال به بات روبیکا (سمت سرور — توکن به مرورگر لو نمی‌رود)
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+export const maxDuration = 60; // مهلت اجرای تابع روی ورسل برای آپلود فایل
 
 const BASE = "https://botapi.rubika.ir/v3";
 const MAX_FILE_BYTES = 20 * 1024 * 1024; // حداکثر ۲۰ مگابایت برای هر فایل
@@ -34,15 +35,19 @@ export async function POST(req) {
   }
 
   const fileNames = files.map((f) => f.name);
-  const text = buildMessage({
-    ...payload,
-    files: payload.files && payload.files.length ? payload.files : fileNames,
-  });
 
-  // ۱) ارسال متن درخواست
-  const sent = await rubika(token, "sendMessage", { chat_id: chatId, text });
-  if (!sent.ok) {
-    return Response.json({ ok: false, error: sent.error }, { status: 502 });
+  // ۱) ارسال متن درخواست — فقط وقتی این درخواست حاوی فیلدهای فرم است.
+  // (کلاینت متن را در یک درخواست سبک و هر فایل را در درخواست جدا می‌فرستد)
+  const hasFields = Array.isArray(payload.fields) && payload.fields.length > 0;
+  if (hasFields) {
+    const text = buildMessage({
+      ...payload,
+      files: payload.files && payload.files.length ? payload.files : fileNames,
+    });
+    const sent = await rubika(token, "sendMessage", { chat_id: chatId, text });
+    if (!sent.ok) {
+      return Response.json({ ok: false, error: sent.error }, { status: 502 });
+    }
   }
 
   // ۲) آپلود و ارسال فایل‌ها (best-effort — خطای فایل باعث از دست رفتن خود درخواست نمی‌شود)

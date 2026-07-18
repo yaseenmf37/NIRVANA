@@ -13,8 +13,12 @@ export default function FeaturedProjects({ category, limit = 6, showAll = true }
     : projects
   ).slice(0, limit);
 
-  return (
-    <section className="projects">
+  return (<></>
+  );
+}
+
+  {/*
+      <section className="projects">
       <div className="container">
         <div className="section-head reveal">
           <span className="section-head__eyebrow">نمونه‌کارها</span>
@@ -39,7 +43,6 @@ export default function FeaturedProjects({ category, limit = 6, showAll = true }
 
       {selected && (
         <Lightbox project={selected} onClose={() => setSelected(null)} />
-      )}
+      )} 
     </section>
-  );
-}
+    */}

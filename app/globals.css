@@ -206,8 +206,8 @@ section { padding: 90px 0; }
 .service-card__img::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, transparent 40%, rgba(20,18,16,.85)); }
 .service-card__img--cabinet { background-image: linear-gradient(135deg,rgba(58,42,26,.6),rgba(26,19,13,.6)), url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80'); background-size: cover; background-position: center; }
 .service-card__img--cabin   { background-image: linear-gradient(135deg,rgba(46,51,32,.55),rgba(22,26,14,.6)), url('https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?w=800&q=80'); background-size: cover; background-position: center; }
-.service-card__img--design    { background-image: linear-gradient(135deg,rgba(51,35,56,.55),rgba(22,18,26,.6)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80'); background-size: cover; background-position: center; }
-.service-card__img--cutmaster { background-image: linear-gradient(135deg,rgba(58,42,26,.6),rgba(26,19,13,.6)), url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80'); background-size: cover; background-position: center; }
+.service-card__img--design    { background-image: linear-gradient(135deg,rgba(51,35,56,.45),rgba(22,18,26,.5)), url('/img/design-hero.jpg'); background-size: cover; background-position: center; }
+.service-card__img--cutmaster { background-image: linear-gradient(135deg,rgba(58,42,26,.5),rgba(26,19,13,.5)), url('/img/analysis-hero.jpg'); background-size: cover; background-position: center; }
 .service-card__body { padding: 1.6rem; position: relative; }
 .service-card__no { color: var(--gold); font-weight: 800; font-size: 1.4rem; opacity: .55; }
 .service-card__body h3 { font-size: 1.3rem; margin: .3rem 0 .6rem; }

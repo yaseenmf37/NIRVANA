@@ -9,6 +9,9 @@ const styleInfo = [
   { t: "نئوکلاسیک", d: "بازآفرینی سبک کلاسیک با ظرافت مدرن؛ ساده‌تر از کلاسیک اما همچنان لوکس." },
 ];
 
+const CUSTOM_PLACEHOLDER = "یا مورد دلخواه را تایپ کنید…";
+const surfaceColors = ["سفید", "طوسی روشن", "طوسی تیره", "مشکی", "چوبی", "همرنگ بدنه"];
+
 // ── فرم عمومی (صفحه «فرم درخواست») ─────────────────────────────
 const genericSteps = [
   { key: "name", q: "نام و نام خانوادگی شما چیست؟", type: "text", placeholder: "نام شما", required: true },
@@ -42,104 +45,118 @@ const genericSteps = [
 ];
 
 // ── فرم «طراحی و آنالیز» (صفحه آنالیز و کات‌مستر) ───────────────
+// همه‌ی مرحله‌ها چندگزینه‌ای‌اند و در کنارشان امکان تایپ مورد دلخواه هست.
 const analysisSteps = [
   { key: "name", q: "نام و نام خانوادگی شما چیست؟", type: "text", placeholder: "نام شما", required: true },
   { key: "phone", q: "شماره تماس شما؟", type: "tel", placeholder: "۰۹۱۲...", required: true, numeric: true },
   {
     key: "style",
     q: "سبک کابینت؟",
-    type: "choice",
+    type: "multi",
     options: ["مدرن", "پست مدرن", "نئوکلاسیک", "کلاسیک"],
     info: styleInfo,
+    customInput: true,
   },
   {
     key: "body",
     q: "جنس بدنه؟",
-    type: "choice",
+    type: "multi",
     options: ["MDF سفید", "ام‌دی‌اف رنگی"],
-    custom: "تایپ کنید",
+    customInput: true,
   },
   {
     key: "doorThickness",
     q: "ضخامت درب‌ها؟",
-    type: "choice",
-    options: ["۱.۶ میل ام‌دی‌اف", "۱.۶ میل رنگ وکیوم", "۲.۵ میل رنگ وکیوم"],
-    custom: "تایپ کنید",
+    type: "multi",
+    options: ["۱۶ میل ام‌دی‌اف", "۱۶ میل رنگ وکیوم", "۲۵ میل رنگ وکیوم"],
+    customInput: true,
   },
   {
     key: "facadeThickness",
     q: "ضخامت نماها؟",
-    type: "choice",
+    type: "multi",
     options: ["۱۶ میل", "۲۵ میل"],
-    custom: "تایپ کنید",
+    customInput: true,
   },
   {
     key: "wallHeight",
     q: "ارتفاع دیواری‌ها؟",
-    type: "choice",
-    options: ["ارتفاع ۹۰ سانت", "تا سقف با تاج", "تا سقف بدون تاج"],
+    type: "multi",
+    options: ["استاندارد", "تا سقف با تاج", "تا سقف بدون تاج"],
+    customInput: true,
   },
   {
     key: "wallDepth",
     q: "عمق یونیت دیواری؟",
-    type: "choice",
+    type: "multi",
     options: ["۳۵ سانت (استاندارد)", "۴۵ سانت", "هم‌تراز با زمینی"],
-    custom: "تایپ کنید",
+    customInput: true,
   },
   {
     key: "baseSize",
-    q: "ابعاد یونیت زمینی؟",
-    type: "choice",
+    q: "عمق یونیت زمینی؟",
+    type: "multi",
     options: ["۵۵ سانت (استاندارد)", "۷۰ سانت برای ماشین توکار"],
+    customInput: true,
   },
   {
     key: "counterThickness",
     q: "ضخامت صفحه؟",
-    type: "choice",
+    type: "multi",
     options: ["۱۲ میل", "۳ سانت", "۵ سانت"],
-    custom: "تایپ کنید",
+    customInput: true,
+  },
+  {
+    key: "counterColor",
+    q: "رنگ صفحه؟",
+    type: "multi",
+    options: surfaceColors,
+    customInput: true,
   },
   {
     key: "sink",
     q: "سینک؟",
-    type: "choice",
+    type: "multi",
     options: ["توکار", "روکار"],
+    customInput: true,
     sizeNote: "ابعاد سینک را بنویسید",
   },
   {
     key: "gas",
     q: "گاز؟",
-    type: "choice",
+    type: "multi",
     options: ["رومیزی", "مبله"],
-    custom: "ابعاد",
-    customPlaceholder: "ابعاد گاز را بنویسید",
+    customInput: true,
+    sizeNote: "ابعاد گاز را بنویسید",
   },
   {
     key: "hood",
     q: "هود؟",
-    type: "choice",
+    type: "multi",
     options: ["مخفی", "شومینه‌ای"],
-    custom: "ابعاد",
-    customPlaceholder: "ابعاد هود را بنویسید",
+    customInput: true,
+    sizeNote: "ابعاد هود را بنویسید",
   },
   {
     key: "drainerMat",
     q: "جنس یونیت آبچکان؟",
-    type: "choice",
+    type: "multi",
     options: ["PVC", "MDF"],
+    customInput: true,
   },
   {
     key: "sinkMat",
     q: "جنس یونیت سینک؟",
-    type: "choice",
+    type: "multi",
     options: ["PVC", "MDF"],
+    customInput: true,
   },
   {
     key: "railType",
     q: "نوع ریل کشو؟",
-    type: "choice",
+    type: "multi",
     options: ["ساچمه‌ای", "تاندم", "بلوم"],
-    custom: "تایپ کنید",
+    customInput: true,
   },
   {
     key: "appliances",
@@ -157,6 +174,7 @@ const analysisSteps = [
       "سینک ظرفشویی",
       "قهوه‌ساز",
     ],
+    customInput: true,
     sizeNote: "در صورت نیاز، ابعاد لوازم برقی را بنویسید",
   },
   { key: "file", q: "عکس آشپزخانه و اندازه‌ها را ارسال کنید.", type: "file", required: false },
@@ -176,28 +194,38 @@ const designSteps = [
   {
     key: "style",
     q: "سبک کابینت؟",
-    type: "choice",
+    type: "multi",
     options: ["مدرن", "پست مدرن", "نئوکلاسیک"],
     info: styleInfo,
+    customInput: true,
   },
   {
     key: "colorType",
     q: "نوع رنگ؟",
-    type: "choice",
+    type: "multi",
     options: ["تک رنگ", "دو رنگ"],
+    customInput: true,
   },
   {
     key: "color",
     q: "انتخاب رنگ؟",
-    type: "choice",
+    type: "multi",
     options: ["سفید براق", "سفید مات", "طوسی روشن", "طوسی تیره", "چوبی"],
-    custom: "تایپ کنید",
+    customInput: true,
+  },
+  {
+    key: "counterColor",
+    q: "رنگ صفحه؟",
+    type: "multi",
+    options: surfaceColors,
+    customInput: true,
   },
   {
     key: "fridge",
     q: "نوع یخچال؟",
-    type: "choice",
+    type: "multi",
     options: ["ساید", "دوقلو"],
+    customInput: true,
     sizeNote: "ابعاد یخچال را بنویسید",
   },
   {
@@ -205,32 +233,37 @@ const designSteps = [
     q: "فر و ماکروفر؟",
     type: "multi",
     options: ["فر", "ماکروفر"],
+    customInput: true,
   },
   {
     key: "sink",
     q: "سینک؟",
-    type: "choice",
+    type: "multi",
     options: ["روکار", "توکار"],
+    customInput: true,
     sizeNote: "ابعاد سینک را بنویسید",
   },
   {
     key: "hood",
     q: "هود؟",
-    type: "choice",
+    type: "multi",
     options: ["مخفی", "شومینه‌ای"],
+    customInput: true,
     sizeNote: "ابعاد هود را بنویسید",
   },
   {
     key: "gas",
     q: "گاز؟",
-    type: "choice",
+    type: "multi",
     options: ["رومیزی", "مبله"],
+    customInput: true,
   },
   {
     key: "machines",
     q: "تعداد ماشین؟",
     type: "multi",
     options: ["ماشین لباس‌شویی", "ماشین ظرف‌شویی"],
+    customInput: true,
     sizeNote: "در صورت نیاز، تعداد یا توضیح را بنویسید",
   },
   { key: "file", q: "عکس آشپزخانه و اندازه‌ها را ارسال کنید.", type: "file", required: false },
@@ -242,6 +275,51 @@ const formTitles = {
   analysis: "درخواست طراحی و آنالیز",
   design: "درخواست طراحی کابینت",
 };
+
+// فشرده‌سازی عکس‌ها در مرورگر تا حجم آپلود کم شود (رفع خطای حجم روی ورسل)
+function compressImage(file, maxDim = 1600, quality = 0.82) {
+  return new Promise((resolve) => {
+    if (!file || !file.type || !file.type.startsWith("image/")) return resolve(file);
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width, height } = img;
+      if (!width || !height) return resolve(file);
+      if (width > maxDim || height > maxDim) {
+        if (width >= height) {
+          height = Math.round((height * maxDim) / width);
+          width = maxDim;
+        } else {
+          width = Math.round((width * maxDim) / height);
+          height = maxDim;
+        }
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return resolve(file);
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(
+        (blob) => {
+          if (blob && blob.size < file.size) {
+            resolve(new File([blob], file.name, { type: "image/jpeg" }));
+          } else {
+            resolve(file);
+          }
+        },
+        "image/jpeg",
+        quality
+      );
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      resolve(file);
+    };
+    img.src = url;
+  });
+}
 
 export default function StepForm({ variant }) {
   const steps = variants[variant] || genericSteps;
@@ -309,23 +387,19 @@ export default function StepForm({ variant }) {
 
   const isEmpty = (step) => {
     const val = answers[step.key];
-    if (Array.isArray(val)) return val.length === 0;
+    const custom = answers[step.key + "__custom"];
+    if (Array.isArray(val)) return val.length === 0 && !(custom && String(custom).trim());
     return !val || String(val).trim() === "";
   };
 
   // متن پاسخ هر سوال به‌صورت رشته‌ی ساده (برای ارسال به بات)
   const answerText = (step) => {
     const val = answers[step.key];
-    if (step.type === "choice") {
-      let base;
-      if (!val) base = "";
-      else if (step.custom && val === step.custom) base = answers[step.key + "__text"] || step.custom;
-      else base = val;
-      const note = step.sizeNote ? answers[step.key + "__size"] : "";
-      return [base, note].filter(Boolean).join(" — ");
-    }
-    if (Array.isArray(val)) {
-      const base = val.length ? val.join("، ") : "";
+    if (step.type === "multi" || Array.isArray(val)) {
+      const arr = Array.isArray(val) ? val : [];
+      const custom = (answers[step.key + "__custom"] || "").trim();
+      const parts = custom ? [...arr, custom] : arr;
+      const base = parts.length ? parts.join("، ") : "";
       const note = step.sizeNote ? answers[step.key + "__size"] : "";
       return [base, note].filter(Boolean).join(" — ");
     }
@@ -340,11 +414,30 @@ export default function StepForm({ variant }) {
       .map((s) => ({ label: s.q, value: answerText(s) }))
       .filter((f) => f.value);
     try {
-      const fd = new FormData();
-      fd.append("payload", JSON.stringify({ formType, fields }));
-      files.forEach((f) => f.file && fd.append("files", f.file, f.name));
-      const res = await fetch("/api/submit", { method: "POST", body: fd });
+      // ۱) ارسال متن درخواست (سبک — بدون فایل تا از محدودیت حجم ورسل رد نشویم)
+      const textFd = new FormData();
+      textFd.append(
+        "payload",
+        JSON.stringify({ formType, fields, files: files.map((f) => f.name) })
+      );
+      const res = await fetch("/api/submit", { method: "POST", body: textFd });
       if (!res.ok) throw new Error("send_failed");
+
+      // ۲) ارسال فایل‌ها؛ هر فایل در یک درخواست جدا و پس از فشرده‌سازی عکس‌ها
+      for (const f of files) {
+        if (!f.file) continue;
+        let blob = f.file;
+        try {
+          blob = await compressImage(f.file);
+        } catch {
+          blob = f.file;
+        }
+        const fileFd = new FormData();
+        fileFd.append("payload", JSON.stringify({ fileOnly: true }));
+        fileFd.append("files", blob, f.name);
+        await fetch("/api/submit", { method: "POST", body: fileFd }).catch(() => {});
+      }
+
       setDone(true);
     } catch {
       setError("ارسال با خطا مواجه شد. لطفاً اتصال اینترنت را بررسی و دوباره تلاش کنید.");
@@ -391,58 +484,6 @@ export default function StepForm({ variant }) {
         </div>
       );
     }
-    if (step.type === "choice") {
-      const isCustom = step.custom && val === step.custom;
-      return (
-        <>
-          <div className="chips">
-            {step.options.map((o) => (
-              <button
-                key={o}
-                type="button"
-                className={`chip ${val === o ? "chip--on" : ""}`}
-                onClick={() => setValue(step.key, o)}
-              >
-                {val === o && <span className="chip__tick">✓</span>}
-                {o}
-              </button>
-            ))}
-            {step.custom && (
-              <button
-                type="button"
-                className={`chip ${isCustom ? "chip--on" : ""}`}
-                onClick={() => setValue(step.key, step.custom)}
-              >
-                {isCustom && <span className="chip__tick">✓</span>}
-                {step.custom}
-              </button>
-            )}
-          </div>
-          {isCustom && (
-            <div className="field qstep__field qstep__custom">
-              <input
-                type="text"
-                value={answers[step.key + "__text"] ?? ""}
-                placeholder={step.customPlaceholder || "مورد نظر خود را بنویسید"}
-                onChange={(e) => setValue(step.key + "__text", e.target.value)}
-                onKeyDown={(e) => onKeyDown(e, false)}
-              />
-            </div>
-          )}
-          {step.sizeNote && (
-            <div className="field qstep__field qstep__custom">
-              <input
-                type="text"
-                value={answers[step.key + "__size"] ?? ""}
-                placeholder={step.sizeNote}
-                onChange={(e) => setValue(step.key + "__size", e.target.value)}
-                onKeyDown={(e) => onKeyDown(e, false)}
-              />
-            </div>
-          )}
-        </>
-      );
-    }
     if (step.type === "multi") {
       const arr = Array.isArray(val) ? val : [];
       return (
@@ -460,6 +501,17 @@ export default function StepForm({ variant }) {
               </button>
             ))}
           </div>
+          {step.customInput && (
+            <div className="field qstep__field qstep__custom">
+              <input
+                type="text"
+                value={answers[step.key + "__custom"] ?? ""}
+                placeholder={step.customPlaceholder || CUSTOM_PLACEHOLDER}
+                onChange={(e) => setValue(step.key + "__custom", e.target.value)}
+                onKeyDown={(e) => onKeyDown(e, false)}
+              />
+            </div>
+          )}
           {step.sizeNote && (
             <div className="field qstep__field qstep__custom">
               <input
@@ -547,17 +599,11 @@ export default function StepForm({ variant }) {
         </span>
       );
     }
-    if (step.type === "choice") {
-      let base;
-      if (!val) base = "";
-      else if (step.custom && val === step.custom) base = answers[step.key + "__text"] || step.custom;
-      else base = val;
-      const note = step.sizeNote ? answers[step.key + "__size"] : "";
-      if (!base && !note) return "—";
-      return [base, note].filter(Boolean).join(" — ");
-    }
-    if (Array.isArray(val)) {
-      const base = val.length ? val.join("، ") : "";
+    if (step.type === "multi" || Array.isArray(val)) {
+      const arr = Array.isArray(val) ? val : [];
+      const custom = (answers[step.key + "__custom"] || "").trim();
+      const parts = custom ? [...arr, custom] : arr;
+      const base = parts.length ? parts.join("، ") : "";
       const note = step.sizeNote ? answers[step.key + "__size"] : "";
       if (!base && !note) return "—";
       return [base, note].filter(Boolean).join(" — ");
@@ -594,6 +640,10 @@ export default function StepForm({ variant }) {
           const isActive = i === current;
           const isDone = i < current;
           const isUpcoming = i > current;
+          const infoSelected =
+            Array.isArray(answers[step.key]) && answers[step.key].length
+              ? answers[step.key][answers[step.key].length - 1]
+              : step.options && step.options[0];
           return (
             <div
               key={step.key}
@@ -606,7 +656,7 @@ export default function StepForm({ variant }) {
                 <p className="qstep__q">
                   <span>{step.q}</span>
                   {isActive && step.info && (
-                    <InfoLamp items={step.info} selected={answers[step.key] || step.options[0]} />
+                    <InfoLamp items={step.info} selected={infoSelected} />
                   )}
                 </p>
 
