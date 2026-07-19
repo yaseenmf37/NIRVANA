@@ -3,7 +3,7 @@ import Contact from "@/components/Contact";
 
 export const metadata = {
   title: "تماس با ما | طراحی نیروانا",
-  description: "برای مشاوره رایگان، بازدید حضوری و دریافت قیمت با ما تماس بگیرید.",
+  description: "برای مشاوره رایگان، و دریافت قیمت با ما تماس بگیرید.",
 };
 
 export default function ContactPage() {

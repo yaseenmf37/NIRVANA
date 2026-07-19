@@ -61,14 +61,14 @@ const analysisSteps = [
     key: "body",
     q: "جنس بدنه؟",
     type: "multi",
-    options: ["MDF سفید", "ام‌دی‌اف رنگی"],
+    options: ["MDF سفید", "MDF رنگی"],
     customInput: true,
   },
   {
     key: "doorThickness",
     q: "ضخامت درب‌ها؟",
     type: "multi",
-    options: ["۱۶ میل ام‌دی‌اف", "۱۶ میل رنگ وکیوم", "۲۵ میل رنگ وکیوم"],
+    options: ["۱۶ میل MDF", "۱۶ میل رنگ وکیوم", "۲۵ میل رنگ وکیوم"],
     customInput: true,
   },
   {
@@ -82,7 +82,7 @@ const analysisSteps = [
     key: "wallHeight",
     q: "ارتفاع دیواری‌ها؟",
     type: "multi",
-    options: ["استاندارد", "تا سقف با تاج", "تا سقف بدون تاج"],
+    options: ["استاندارد (90)", "تا سقف با تاج", "تا سقف بدون تاج"],
     customInput: true,
   },
   {

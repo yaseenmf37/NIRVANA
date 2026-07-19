@@ -77,7 +77,7 @@ export default function Contact() {
           <p>فرم را پر کنید یا از راه‌های زیر با ما در ارتباط باشید.</p>
           <ul className="contact__list">
             <li><span className="ci">☎</span> <a href="tel:09121234567">09199826119</a></li>
-            <li><span className="ci">✉</span> <a href="mailto:info@cabinetluxe.ir">info@cabinetluxe.ir</a></li>
+            <li><span className="ci">✉</span> <a href="mailto:koriesmarili@gmail.com">koriesmarili@gmail.com</a></li>
             {/* <li><span className="ci">⌖</span> تهران، خیابان نمونه، پلاک ۱۲</li> */}
             <li><span className="ci">◷</span> شنبه تا پنجشنبه، ۹ تا ۲۱</li>
           </ul>
