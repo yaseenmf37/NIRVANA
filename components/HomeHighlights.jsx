@@ -31,6 +31,17 @@ const items = [
       </svg>
     ),
   },
+  {
+    title: "درب هایگلاس",
+    text: "سطح براق و مقاوم با ظاهری مدرن و لوکس",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round">
+        <rect x="5" y="2.5" width="14" height="19" rx="1.5" />
+        <path d="M15.2 11.5v1.6" />
+        <path d="M8 6l2.4 2.4M8 10.2l4.2 4.2" />
+      </svg>
+    ),
+  },
 ];
 
 export default function HomeHighlights() {
