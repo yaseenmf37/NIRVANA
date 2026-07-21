@@ -68,7 +68,7 @@ const analysisSteps = [
     key: "doorThickness",
     q: "ضخامت درب‌ها؟",
     type: "multi",
-    options: ["۱۶ میل MDF", "۱۶ میل رنگ وکیوم", "۲۵ میل رنگ وکیوم"],
+    options: ["۱۶ میل MDF", "۱۶ میل رنگ وکیوم", "۲۵ میل رنگ وکیوم" , "درب هایگلاس"],
     customInput: true,
   },
   {
